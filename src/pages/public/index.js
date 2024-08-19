@@ -1,0 +1,13 @@
+export { default as Public } from "./Public";
+export { default as Blog } from "./Blog";
+export { default as BlogDetail } from "./BlogDetail";
+export { default as Contact } from "./Contact";
+export { default as DetailCart } from "./DetailCart";
+export { default as FAQ } from "./FAQ";
+export { default as Home } from "./Home";
+export { default as Login } from "./Login";
+export { default as Product } from "./Product";
+export { default as ProductDetail } from "./ProductDetail";
+export { default as Service } from "./Service";
+export { default as AboutUs } from "./AboutUs";
+export { default as Checkout } from "./Checkout";

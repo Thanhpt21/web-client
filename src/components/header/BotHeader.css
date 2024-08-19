@@ -1,0 +1,55 @@
+/* Mũi tên dạng tam giác */
+.absolute {
+    position: absolute;
+  }
+  
+  .left-full {
+    left: 100%; /* Đặt mũi tên ngay bên phải phần danh mục */
+  }
+  
+ 
+  
+  .transform {
+    transform: translateY(50%); /* Canh giữa mũi tên theo chiều dọc */
+  }
+  
+  .w-0 {
+    width: 0;
+  }
+  
+  .h-0 {
+    height: 0;
+  }
+
+  .border-r-8 {
+    border-right-width: 8px;
+  }
+  
+  .border-t-20 {
+    border-top-width: 20px;
+  }
+  
+  
+  
+  .border-b-20 {
+    border-bottom-width: 20px;
+  }
+  
+  .border-t-transparent {
+    border-top-color: transparent;
+  }
+  
+  .border-r-black {
+    border-right-color: #000;
+  }
+  
+  .border-b-transparent {
+    border-bottom-color: transparent;
+  }
+
+
+  /* Tùy chỉnh cho bóng bên phải */
+.shadow-custom {
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.1);
+}
+  

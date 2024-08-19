@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Varela&display=swap');
+
+
+
+body {
+    font-family: "Roboto Condensed", sans-serif;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+@layer components {
+.search-bar{
+        @apply bg-[#151616] w-[250px] transition-all duration-300 rounded-full px-3 py-1 group-focus:outline-none
+    }
+}
+
+/* Ẩn spinner trong input type number */
+.input-no-spinner {
+    -moz-appearance: textfield; /* Firefox */
+  }
+  
+  .input-no-spinner::-webkit-inner-spin-button,
+  .input-no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    margin: 0;
+  }
+    
+
+input::placeholder {
+    font-size: 0.75rem; 
+    color: #6b7280; 
+  }
+
+.animate-wave {
+    animation: wave 1s ease-in-out infinite;
+  }
+  
+
+
+html {
+    scroll-behavior: smooth;
+  }
+
+  
+code{
+    white-space: initial;
+}
+
+.custom-slider button.slick-next{
+    right: 20px;
+    z-index: 10;
+}
+
+.custom-slider button.slick-prev{
+    left: 10px;
+    z-index: 10;
+}
+
+.custom-slider button.slick-next::before{
+    color: gray;
+    content: '\276F';
+    background-color: #ccc;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+.custom-slider button.slick-prev::before{
+    color: gray;
+    content: '\276E';
+    background-color: #ccc;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.image-slider button.slick-next{
+    right: 20px;
+    z-index: 10;
+}
+
+.image-slider button.slick-prev{
+    left: 10px;
+    z-index: 10;
+}
+
+.image-slider button.slick-next::before{
+    color: gray;
+    content: '\276F';
+    background-color: #ccc;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+.image-slider button.slick-prev::before{
+    color: gray;
+    content: '\276E';
+    background-color: #ccc;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    appearance: none;
+}
+
+/* .my-masonry-grid {
+    display: -webkit-box; 
+    display: -ms-flexbox; 
+    display: flex;
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    background-clip: padding-box;
+  }*/
+  
+  .my-masonry-grid_column > div {
+    margin-bottom: 20px;
+  } 
+
+
