@@ -61,30 +61,43 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
 
   useEffect(() => {
     if (valueEdit) {
-      setWatchcat(valueEdit?.category._id || "");
-      reset({
-        title: valueEdit.title || "",
-        code: valueEdit.code || "",
-        price: valueEdit.price || 0,
-        discount: valueEdit.discount || 0,
-        color: valueEdit?.color?._id || "",
-        status: valueEdit.status || "",
-        category: valueEdit?.category._id || "", // Set giá trị mặc định cho category
+      // Cập nhật các trạng thái đồng bộ
+      const updatedValues = {
+        watchcat: valueEdit?.category?._id || "",
+        formValues: {
+          title: valueEdit.title || "",
+          code: valueEdit.code || "",
+          price: valueEdit.price || 0,
+          discount: valueEdit.discount || 0,
+          color: valueEdit?.color?._id || "",
+          status: valueEdit.status || "",
+          category: valueEdit?.category?._id || "",
+          tags: valueEdit.tags || [],
+        },
+        brand: valueEdit?.brand?._id || "",
+        payload: {
+          description: valueEdit.description || "",
+        },
+        preview: {
+          thumb: valueEdit.thumb || "",
+          images: valueEdit.images || [],
+        },
         tags: valueEdit.tags || [],
-      });
+      };
+
+      // Cập nhật formValues
+      reset(updatedValues.formValues);
+
+      // Cập nhật trạng thái khác
+      setWatchcat(updatedValues.watchcat);
+      setpayload(updatedValues.payload);
+      setPreview(updatedValues.preview);
+      setTags(updatedValues.tags);
+
+      // Cập nhật brand sau một khoảng thời gian
       setTimeout(() => {
-        reset({
-          brand: valueEdit?.brand._id || "",
-        });
+        reset((prevValues) => ({ ...prevValues, brand: updatedValues.brand }));
       }, 200);
-      setpayload({
-        description: valueEdit.description || "",
-      });
-      setPreview({
-        thumb: valueEdit.thumb || "",
-        images: valueEdit.images || [],
-      });
-      setTags(valueEdit.tags || []);
     }
   }, [valueEdit, reset]);
 
