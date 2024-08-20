@@ -75,9 +75,8 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
       setTimeout(() => {
         reset({
           brand: valueEdit?.brand._id || "",
-          color: valueEdit?.color?._id || "",
         });
-      }, 100);
+      }, 200);
       setpayload({
         description: valueEdit.description || "",
       });
