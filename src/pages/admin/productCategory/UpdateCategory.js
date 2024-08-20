@@ -48,9 +48,7 @@ const UpdateCategory = ({ valueEdit, render, setValueEdit }) => {
   }, [watch("images")]);
 
   const handleUpdateCategory = async (data) => {
-    let brand = [...val];
-    brand = Object.values(brand);
-    const finalPayload = { ...data, brand };
+    const finalPayload = { ...data };
     finalPayload.images =
       data?.images?.length > 0 ? data.images[0] : preview.images;
 
