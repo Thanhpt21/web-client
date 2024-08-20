@@ -59,45 +59,36 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
 
   const [watchcat, setWatchcat] = useState(null);
 
+  console.log(watchcat);
+
   useEffect(() => {
     if (valueEdit) {
-      // Cập nhật các trạng thái đồng bộ
-      const updatedValues = {
-        watchcat: valueEdit?.category?._id || "",
-        formValues: {
-          title: valueEdit.title || "",
-          code: valueEdit.code || "",
-          price: valueEdit.price || 0,
-          discount: valueEdit.discount || 0,
-          color: valueEdit?.color?._id || "",
-          status: valueEdit.status || "",
-          category: valueEdit?.category?._id || "",
-          tags: valueEdit.tags || [],
-        },
-        brand: valueEdit?.brand?._id || "",
-        payload: {
-          description: valueEdit.description || "",
-        },
-        preview: {
-          thumb: valueEdit.thumb || "",
-          images: valueEdit.images || [],
-        },
+      setWatchcat(valueEdit?.category._id || "");
+      reset({
+        title: valueEdit.title || "",
+        code: valueEdit.code || "",
+        price: valueEdit.price || 0,
+        discount: valueEdit.discount || 0,
+        color: valueEdit?.color?._id || "",
+        status: valueEdit.status || "",
+        category: valueEdit?.category._id || "", // Set giá trị mặc định cho category
         tags: valueEdit.tags || [],
-      };
+      });
 
-      // Cập nhật formValues
-      reset(updatedValues.formValues);
-
-      // Cập nhật trạng thái khác
-      setWatchcat(updatedValues.watchcat);
-      setpayload(updatedValues.payload);
-      setPreview(updatedValues.preview);
-      setTags(updatedValues.tags);
-
-      // Cập nhật brand sau một khoảng thời gian
       setTimeout(() => {
-        reset((prevValues) => ({ ...prevValues, brand: updatedValues.brand }));
-      }, 200);
+        reset({
+          brand: valueEdit?.brand?._id || "",
+        });
+      }, 100);
+
+      setpayload({
+        description: valueEdit.description || "",
+      });
+      setPreview({
+        thumb: valueEdit.thumb || "",
+        images: valueEdit.images || [],
+      });
+      setTags(valueEdit.tags || []);
     }
   }, [valueEdit, reset]);
 
