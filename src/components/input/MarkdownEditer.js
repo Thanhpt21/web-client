@@ -21,7 +21,7 @@ const MarkDownEditer = ({
     <div className="flex flex-col gap-2">
       <span className="">{label}</span>
       <Editor
-        apiKey="epmo14bra6h2gcvjbldsydqpx623wtb48hzyfsaoznks4rlh"
+        apiKey="av0qsby18h1ex6ezz8rb9404ry1kzpexk31nuj27ikvncfi1"
         initialValue={value}
         init={{
           height: 500,

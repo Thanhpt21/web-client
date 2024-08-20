@@ -28,6 +28,7 @@
     "react-masonry-css": "^1.0.16",
     "react-mouse-follower": "^2.0.3",
     "react-qr-code": "^2.0.15",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
