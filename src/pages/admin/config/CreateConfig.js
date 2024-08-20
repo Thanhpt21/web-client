@@ -20,6 +20,8 @@ import { getConfig } from "store/app/appActions";
 const CreateConfig = () => {
   const { configs } = useSelector((state) => state?.app);
 
+  console.log("cf", configs);
+
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
 
@@ -58,19 +60,19 @@ const CreateConfig = () => {
     dispatch(getConfig());
     setTimeout(() => {
       reset({
-        name: configs?.name || "",
-        email: configs?.email || "",
-        mobile: configs?.mobile || "",
-        address: configs?.address || "",
-        facebook: configs?.facebook || "",
-        zalo: configs?.zalo || "",
-        instagram: configs?.instagram || "",
-        tiktok: configs?.tiktok || "",
-        youtube: configs?.youtube || "",
+        name: configs[0]?.name || "",
+        email: configs[0]?.email || "",
+        mobile: configs[0]?.mobile || "",
+        address: configs[0]?.address || "",
+        facebook: configs[0]?.facebook || "",
+        zalo: configs[0]?.zalo || "",
+        instagram: configs[0]?.instagram || "",
+        tiktok: configs[0]?.tiktok || "",
+        youtube: configs[0]?.youtube || "",
       });
       setPreview({
-        logo: configs?.logo || "",
-        favicon: configs?.favicon || "",
+        logo: configs[0]?.logo || "",
+        favicon: configs[0]?.favicon || "",
       });
     }, 100);
   }, [update]);
@@ -105,7 +107,7 @@ const CreateConfig = () => {
     for (let i of Object.entries(finalPayload)) formData.append(i[0], i[1]);
 
     dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
-    const response = await apiUpdateConfig(formData, configs?._id);
+    const response = await apiUpdateConfig(formData, configs[0]?._id);
     dispatch(showModal({ isShowModal: false, modalChildren: null }));
 
     if (response.success) {

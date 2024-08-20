@@ -26,7 +26,7 @@ export const getBlogCategories = createAsyncThunk(
 export const getConfig = createAsyncThunk(
   "app/configs",
   async (data, { rejectWithValue }) => {
-    const response = await apis.apigetConfig("669bbe4abc3f0078867f0f48");
+    const response = await apis.apigetConfig();
     if (!response.success) {
       return rejectWithValue(response);
     }

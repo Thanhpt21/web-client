@@ -1,8 +1,8 @@
 import axios from "../axios";
 
-export const apigetConfig = (cid) =>
+export const apigetConfig = () =>
   axios({
-    url: "/config/" + cid,
+    url: "/config/",
     method: "get",
   });
 
