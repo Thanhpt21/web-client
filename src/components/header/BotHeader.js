@@ -357,16 +357,19 @@ const BotHeader = ({
                           <div>
                             {brandData?.map((brand) => (
                               <div
-                                key={brand._id}
+                                key={brand?._id}
                                 className="flex gap-1 items-center cursor-pointer hover:text-main"
-                                onClick={() => handleBrandClick(brand._id)}
+                                onClick={() => handleBrandClick(brand?._id)}
                               >
                                 <div className="flex gap-1 text-sm">
-                                  <span>{brand.category.title} </span>
-                                  <span>{brand.title}</span>
+                                  <span>{brand?.category?.title} </span>
+                                  <span>{brand?.title}</span>
                                 </div>
 
-                                <img src={brand.images} className="w-10 h-10" />
+                                <img
+                                  src={brand?.images}
+                                  className="w-10 h-10"
+                                />
                               </div>
                             ))}
                           </div>
