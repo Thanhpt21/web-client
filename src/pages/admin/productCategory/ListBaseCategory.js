@@ -14,12 +14,10 @@ import useDebounce from "hooks/useDebounce";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { apiDeleteBlogCategory } from "apis/blogCategory";
 import { apiDeleteCategory, apigetCategories } from "apis/category";
 import UpdateCategory from "./UpdateCategory";
-import { CiShop } from "react-icons/ci";
 
-const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
+const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseCategory = () => {
   const navigate = useNavigate();
@@ -27,8 +25,6 @@ const ListBaseCategory = () => {
   const {
     register,
     formState: { errors },
-    reset,
-    handleSubmit,
     watch,
   } = useForm();
 

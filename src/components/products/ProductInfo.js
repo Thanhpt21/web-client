@@ -3,14 +3,13 @@ import { productInfo } from "../../utils/contants";
 import { ButtonField, ViewComment, VoteBar, VoteOption } from "..";
 import { renderStarFromNumber } from "../../utils/helpers";
 import { apiRatings } from "../../apis";
-import { useDispatch, useSelector } from "react-redux";
-import { showModal } from "../../store/app/appSlice";
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import path from "../../utils/path";
-import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
 import { toast } from "react-toastify";
+import withBase from "hocs/withBase";
 
 const ProductInfo = ({
   totalratings,
@@ -19,9 +18,8 @@ const ProductInfo = ({
   pid,
   reRender,
   description,
+  navigate,
 }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.user);
 
   const [activedTab, setactivedTab] = useState(1);
@@ -71,34 +69,6 @@ const ProductInfo = ({
       });
     } else {
       setIsVisible(!isVisible);
-    }
-  };
-
-  const handleVote = () => {
-    if (!isLoggedIn) {
-      Swal.fire({
-        text: "Đăng nhập để đánh giá",
-        cancelButtonText: "Hủy bỏ",
-        confirmButtonText: "Đăng nhập",
-        title: "Opps",
-        showCancelButton: true,
-      }).then((rs) => {
-        if (rs.isConfirmed) {
-          navigate(`/${path.LOGIN}`);
-        }
-      });
-    } else {
-      dispatch(
-        showModal({
-          isShowModal: true,
-          modalChildren: (
-            <VoteOption
-              handleSubmitVote={handleSubmitVote}
-              nameProduct={nameProduct}
-            />
-          ),
-        })
-      );
     }
   };
 
@@ -203,4 +173,4 @@ const ProductInfo = ({
   );
 };
 
-export default memo(ProductInfo);
+export default memo(withBase(ProductInfo));

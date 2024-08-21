@@ -1,24 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { CustomizeVariant, InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import {
-  apiDeleteProduct,
-  apiDeleteProductVariant,
-  getProduct,
-  getProducts,
-} from "apis";
+import { apiDeleteProductVariant, getProduct } from "apis";
 import { Table, Space } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
-import {
-  useSearchParams,
-  createSearchParams,
-  useNavigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import useDebounce from "hooks/useDebounce";
-import UpdateProduct from "./UpdateProduct";
+import { useSearchParams } from "react-router-dom";
+
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import withBase from "hocs/withBase";
@@ -26,15 +13,11 @@ import path from "utils/path";
 import { formatMoney } from "utils/helpers";
 import UpdateCustomizeVariant from "./UpdateCustomizeVariant";
 
-const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
+const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseProductVariants = ({ location, navigate }) => {
   const {
-    register,
     formState: { errors },
-    reset,
-    handleSubmit,
-    watch,
   } = useForm();
 
   const [params] = useSearchParams();
@@ -64,8 +47,6 @@ const ListBaseProductVariants = ({ location, navigate }) => {
       }
     });
   };
-
-
 
   const columns = [
     {

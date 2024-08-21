@@ -3,10 +3,9 @@ import { useForm } from "react-hook-form";
 import { InputForm, ButtonField, Loading, SelectField } from "components";
 import { getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { showModal } from "store/app/appSlice";
-import { apiAddVariant, apiUpdateVariant } from "apis";
+import { apiUpdateVariant } from "apis";
 import { getColor } from "store/product/productActions";
 import { useLocation } from "react-router-dom";
 

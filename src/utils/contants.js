@@ -15,12 +15,10 @@ const {
   MdProductionQuantityLimits,
   RiBillLine,
   BiCategory,
-  BiCategoryAlt,
   PiNewspaperClippingLight,
   IoColorPaletteOutline,
   GrContact,
   IoSettingsOutline,
-  CiMenuFries,
 } = icons;
 
 export const navigation = [

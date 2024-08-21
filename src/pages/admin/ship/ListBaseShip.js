@@ -18,7 +18,7 @@ import { toast } from "react-toastify";
 import { apiDeleteShip, apigetShips } from "apis/ship";
 import UpdateShip from "./UpdateShip";
 
-const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
+const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseShip = () => {
   const navigate = useNavigate();
@@ -26,8 +26,6 @@ const ListBaseShip = () => {
   const {
     register,
     formState: { errors },
-    reset,
-    handleSubmit,
     watch,
   } = useForm();
 

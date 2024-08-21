@@ -1,6 +1,6 @@
 import { apigetAllRetails } from "apis";
 import { apiCreateEnquiry } from "apis/enquiry";
-import { Breadcrumbs, ButtonField, InputForm, Loading } from "components";
+import { ButtonField, InputForm, Loading } from "components";
 import BreadcrumbsDefault from "components/common/BreadcrumbsDefault";
 import withBase from "hocs/withBase";
 import React, { useEffect, useState } from "react";
@@ -19,7 +19,6 @@ const Contact = ({ dispatch }) => {
     formState: { errors },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
 
   const [dataRetail, setdataRetail] = useState(null);

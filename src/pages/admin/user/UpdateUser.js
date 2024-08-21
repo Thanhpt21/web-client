@@ -13,7 +13,6 @@ const UpdateUser = ({ dispatch, valueEdit, render, setValueEdit }) => {
     formState: { errors },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
 
   const handleUpdateUser = async (data) => {

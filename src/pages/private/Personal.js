@@ -14,7 +14,6 @@ const Personal = () => {
     formState: { errors, isDirty },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
   const { current } = useSelector((state) => state.user);
   const dispatch = useDispatch();

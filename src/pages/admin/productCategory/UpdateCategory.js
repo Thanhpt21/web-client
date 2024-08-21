@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
 import { apiUpdateCategory } from "apis/category";
-import { FaTrash } from "react-icons/fa";
 
 const UpdateCategory = ({ valueEdit, render, setValueEdit }) => {
   const dispatch = useDispatch();

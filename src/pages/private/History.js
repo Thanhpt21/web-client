@@ -16,9 +16,7 @@ const History = ({ navigate, location }) => {
   const {
     register,
     formState: { errors },
-    handleSubmit,
     watch,
-    setValue,
   } = useForm();
   const [params] = useSearchParams();
   const queriesDebounce = useDebounce(watch("q"), 800);

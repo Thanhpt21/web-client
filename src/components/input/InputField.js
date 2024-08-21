@@ -8,8 +8,6 @@ const InputField = ({
   setValue,
   nameKey,
   type,
-  invalidField,
-  setInvalidField,
   style,
   fw,
   isHideLabel,

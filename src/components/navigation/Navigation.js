@@ -11,7 +11,7 @@ import { logout } from "store/user/userSlice";
 
 const Navigation = ({ menuOpen, location, dispatch }) => {
   const { menus } = useSelector((state) => state?.app);
-  const { isLoggedIn, current } = useSelector((state) => state?.user);
+  const { current } = useSelector((state) => state?.user);
   const [expandedMenus, setExpandedMenus] = useState([]);
   const [isMenuFixed, setIsMenuFixed] = useState(false);
   const [isShowOption, setisShowOption] = useState(false);

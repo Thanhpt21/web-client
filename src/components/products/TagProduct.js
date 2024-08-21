@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import withBase from "hocs/withBase";
+import React from "react";
 
-const TagProduct = ({ product, category }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
-
+const TagProduct = ({ product, category, navigate }) => {
   const handleTagClick = (tag) => {
-    setSearchTerm(tag); // Cập nhật từ tìm kiếm
     navigate(`/${category}?q=${tag}`); // Điều hướng đến trang tìm kiếm với tham số từ tìm kiếm
   };
 
@@ -29,4 +25,4 @@ const TagProduct = ({ product, category }) => {
   );
 };
 
-export default TagProduct;
+export default withBase(TagProduct);

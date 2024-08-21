@@ -1,20 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  InputForm,
-  SelectField,
-  ButtonField,
-  MarkDownEditer,
-  Loading,
-} from "components";
+import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { validate, getBase64 } from "utils/helpers";
+import { getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { FaRegTrashCan } from "react-icons/fa6";
-import { apiCreateProduct } from "apis";
+
 import { showModal } from "store/app/appSlice";
-import { apiCreateBlog } from "apis/blog";
-import { apigetConfig, apiUpdateConfig } from "apis/config";
+
+import { apiUpdateConfig } from "apis/config";
 import { getConfig } from "store/app/appActions";
 
 const CreateConfig = () => {

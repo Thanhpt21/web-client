@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import payment from "../../assets/order.jpg";
 import { useSelector } from "react-redux";
 import { convertToSlug, formatMoney } from "utils/helpers";
-import {
-  ButtonField,
-  InputForm,
-  Paypal,
-  RadioField,
-  SelectField,
-} from "components";
+import { ButtonField, InputForm, RadioField, SelectField } from "components";
 import { useForm } from "react-hook-form";
 import { apiCreateOrder } from "apis/order";
 import Swal from "sweetalert2";
@@ -16,7 +9,6 @@ import withBase from "hocs/withBase";
 import { getCurrent } from "store/user/userActions";
 import { Link } from "react-router-dom";
 import path from "utils/path";
-import { FaTruck } from "react-icons/fa";
 import { apigetAllCoupon, apiUpdateUsedCount, apiUseCoupon } from "apis/coupon";
 import { toast } from "react-toastify";
 import moment from "moment";

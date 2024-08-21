@@ -1,11 +1,11 @@
-import { apiUpdateStatus, apiUpdateUserByAdmin } from "apis";
+import { apiUpdateStatus } from "apis";
 import { ButtonField, Loading, SelectField } from "components";
 import withBase from "hocs/withBase";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
-import { block, roles, statusOrder } from "utils/contants";
+import { statusOrder } from "utils/contants";
 
 const UpdateOrder = ({ dispatch, valueEdit, render, setValueEdit }) => {
   const {

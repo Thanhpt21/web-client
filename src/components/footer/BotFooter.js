@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import path from "utils/path";
 import { BiSolidPhoneCall } from "react-icons/bi";
-import { FaFacebookF, FaFacebookSquare, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaYoutube } from "react-icons/fa";
 
 const BotFooter = ({ configs }) => {
   return (
@@ -92,6 +92,7 @@ const BotFooter = ({ configs }) => {
                   <a
                     href={configs?.[0]?.facebook}
                     target="_blank"
+                    rel="noopener"
                     className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                   >
                     <FaFacebookF className="text-black group-hover:text-white transition-colors duration-300" />
@@ -99,6 +100,7 @@ const BotFooter = ({ configs }) => {
                   <a
                     href={configs?.[0]?.youtube}
                     target="_blank"
+                    rel="noopener"
                     className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                   >
                     <FaYoutube className="text-black group-hover:text-white transition-colors duration-300" />

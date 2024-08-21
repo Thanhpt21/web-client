@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { InputForm, ButtonField, Loading, Qrcode } from "components";
+import React from "react";
+import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";

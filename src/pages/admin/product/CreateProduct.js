@@ -7,10 +7,9 @@ import {
   Loading,
 } from "components";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { apiCreateProduct, apigetCategories } from "apis";
 import { showModal } from "store/app/appSlice";
 import { getColor } from "store/product/productActions";

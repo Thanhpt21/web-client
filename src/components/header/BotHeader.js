@@ -1,10 +1,5 @@
-import React, { memo, useEffect, useState } from "react";
-import {
-  createSearchParams,
-  Link,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { createSearchParams, Link, NavLink } from "react-router-dom";
 import path from "../../utils/path";
 import { getCurrent } from "../../store/user/userActions";
 import { logout } from "../../store/user/userSlice";
@@ -14,7 +9,7 @@ import { useSelector } from "react-redux";
 import SearchBar from "components/search/SearchBar";
 import { showCart } from "store/app/appSlice";
 import { GiShoppingBag } from "react-icons/gi";
-import { FaCaretDown, FaRegUser, FaUserCircle } from "react-icons/fa";
+import { FaCaretDown, FaUserCircle } from "react-icons/fa";
 import { IoMdClose, IoMdMenu } from "react-icons/io";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { convertToSlug } from "utils/helpers";

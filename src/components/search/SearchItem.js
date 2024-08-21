@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
 import icons from "../../utils/icons";
-import { arrColors } from "../../utils/contants";
 import {
   createSearchParams,
   useNavigate,

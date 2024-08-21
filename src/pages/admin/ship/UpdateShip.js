@@ -1,19 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  InputForm,
-  SelectField,
-  ButtonField,
-  MarkDownEditer,
-  Loading,
-} from "components";
+import React, { useEffect } from "react";
+import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { validate, getBase64 } from "utils/helpers";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
-import { apiUpdateBlogCategory } from "apis/blogCategory";
-import { apiUpdateColor } from "apis/color";
 import { apiUpdateShip } from "apis/ship";
 
 const UpdateShip = ({ valueEdit, render, setValueEdit }) => {
@@ -23,7 +14,6 @@ const UpdateShip = ({ valueEdit, render, setValueEdit }) => {
     formState: { errors },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
 
   useEffect(() => {

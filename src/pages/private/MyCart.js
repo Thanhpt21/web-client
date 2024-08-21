@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { formatMoney } from "utils/helpers";
-import { updateCart } from "store/user/userSlice";
 import { Link } from "react-router-dom";
 import path from "utils/path";
-import { Breadcrumbs, ButtonField, CartItem } from "components";
+import { CartItem } from "components";
 import withBase from "hocs/withBase";
 
 const MyCart = (props) => {

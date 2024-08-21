@@ -1,10 +1,8 @@
 import withBase from "hocs/withBase";
 import React, { useState, useEffect } from "react";
-import { FaArrowUp, FaShoppingCart } from "react-icons/fa";
-import { GiShoppingBag } from "react-icons/gi";
-import { showCart } from "store/app/appSlice";
+import { FaArrowUp } from "react-icons/fa";
 
-const ScrollToTopButton = ({ dispatch }) => {
+const ScrollToTopButton = ({}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   // Xử lý sự kiện cuộn trang

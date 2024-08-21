@@ -1,7 +1,5 @@
 import React, { memo } from "react";
 import { formatMoney } from "../../utils/helpers";
-import new1 from "../../assets/new1.png";
-import trending from "../../assets/trending.png";
 import { renderStarFromNumber } from "../../utils/helpers";
 import SelectOption from "../select/SelectOption";
 import icons from "../../utils/icons";
@@ -19,12 +17,7 @@ import { convertToSlug } from "../../utils/helpers";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineStar } from "react-icons/ai";
 
-const {
-  AiFillEye,
-  MdAddShoppingCart,
-  BsFillSuitHeartFill,
-  BsFillCartCheckFill,
-} = icons;
+const { MdAddShoppingCart, BsFillSuitHeartFill, BsFillCartCheckFill } = icons;
 
 const ProductFrame = ({
   data,

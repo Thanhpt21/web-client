@@ -10,7 +10,6 @@ import { getCurrent } from "store/user/userActions";
 import { toast } from "react-toastify";
 import { apiRemoveCart } from "apis";
 import path from "utils/path";
-import { PiDatabaseDuotone } from "react-icons/pi";
 
 const Cart = ({ dispatch, navigate }) => {
   const { currentCart } = useSelector((state) => state.user);

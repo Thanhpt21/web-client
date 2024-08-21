@@ -1,17 +1,13 @@
 import React from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import {
   Header,
-  Navigation,
-  TopHeader,
   Footer,
   Hero,
   Partners,
   ScrollToTopButton,
   SocialButtons,
 } from "../../components";
-import { UpdateFollower } from "react-mouse-follower";
-import path from "utils/path";
 
 const Public = () => {
   const location = useLocation();

@@ -1,17 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { CustomSelect, InputForm, Pagination, SelectField } from "components";
+import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
 import { apiDeleteProduct, getProducts } from "apis";
 import { Table, Space } from "antd";
-import moment from "moment";
 import icons from "utils/icons";
 import {
   useSearchParams,
   createSearchParams,
   useNavigate,
   useLocation,
-  Link,
-  useParams,
 } from "react-router-dom";
 import useDebounce from "hooks/useDebounce";
 import UpdateProduct from "./UpdateProduct";
@@ -33,8 +30,6 @@ const ListBaseProduct = () => {
   const {
     register,
     formState: { errors },
-    reset,
-    handleSubmit,
     watch,
   } = useForm();
 

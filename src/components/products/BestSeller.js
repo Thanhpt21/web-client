@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { apigetProducts, getProducts } from "../../apis";
-import { Product, CustomSlider } from "..";
+import { getProducts } from "../../apis";
+import { CustomSlider } from "..";
 import { useDispatch, useSelector } from "react-redux";
 import { getNewProducts } from "../../store/product/productActions";
 

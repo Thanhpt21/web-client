@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import headphone from "../../assets/headphone.png";
 import headphone2 from "../../assets/headphone2.png";
 import headphone3 from "../../assets/headphone3.png";
-import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { UpdateFollower } from "react-mouse-follower";
 
@@ -209,11 +208,6 @@ const Hero = () => {
               />
             </AnimatePresence>
           </div>
-          {/* <div className="text-3xl text-[#6CDC2D] fixed bottom-10 right-10 hover:rotate-[360deg] duration-500 z-[99999] mix-blend-difference">
-            <a href="">
-              <FaWhatsapp />
-            </a>
-          </div> */}
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import noImg from "../../../assets/no-image.png";
 import { block, roles } from "utils/contants";
 import moment from "moment";
 
-import { InputField, Pagination, InputForm, SelectField } from "components";
+import { Pagination, InputForm } from "components";
 import useDebounce from "hooks/useDebounce";
 import { createSearchParams, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,6 @@ const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseUser = ({ navigate, location }) => {
   const {
-    handleSubmit,
     register,
     watch,
     formState: { errors },

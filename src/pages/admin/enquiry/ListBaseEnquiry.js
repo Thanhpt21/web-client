@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { apiDeleteProduct } from "apis";
 import { Table, Space, Tag } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
@@ -19,7 +18,7 @@ import { apiDeleteEnquiry, apigetEnquirys } from "apis/enquiry";
 import { statusEnquiry } from "utils/contants";
 import UpdateEnquiry from "./UpdateEnquiry";
 
-const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
+const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseEnquiry = () => {
   const navigate = useNavigate();

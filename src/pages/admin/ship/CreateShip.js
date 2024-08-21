@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -12,7 +12,6 @@ const CreateShip = ({ dispatch }) => {
     formState: { errors },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
 
   const handleCreateShip = async (data) => {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { CustomSelect, InputForm, Pagination } from "components";
+import { CustomSelect, Pagination } from "components";
 import withBase from "hocs/withBase";
 import useDebounce from "hooks/useDebounce";
 import moment from "moment";

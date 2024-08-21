@@ -1,6 +1,4 @@
-import ButtonField from "components/button/ButtonField";
 import React from "react";
-import earphone from "../../assets/earphone.png";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { convertToSlug } from "utils/helpers";

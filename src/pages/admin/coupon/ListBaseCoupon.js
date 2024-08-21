@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { InputForm, Modal, ModalQR, Pagination, Qrcode } from "components";
+import { InputForm, ModalQR, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { apiDeleteProduct } from "apis";
 import { Table, Space, Tag } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
@@ -15,11 +14,9 @@ import useDebounce from "hooks/useDebounce";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { apiDeleteColor, apigetColors } from "apis/color";
 import UpdateCoupon from "./UpdateCoupon";
 import { apiDeleteCoupon, apigetCoupons } from "apis/coupon";
 import withBase from "hocs/withBase";
-import { showModal } from "store/app/appSlice";
 import { IoQrCodeOutline } from "react-icons/io5";
 import { formatMoney } from "utils/helpers";
 

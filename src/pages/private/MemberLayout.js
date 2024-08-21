@@ -4,7 +4,6 @@ import path from "utils/path";
 import { useSelector } from "react-redux";
 import { MemberSidebar } from "components";
 import { AiOutlineMenu } from "react-icons/ai"; // Import icon menu
-import { IoMdClose } from "react-icons/io";
 
 const MemberLayout = () => {
   const { isLoggedIn, current } = useSelector((state) => state.user);

@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
-import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { FaRegTrashCan } from "react-icons/fa6";
+
 import { showModal } from "store/app/appSlice";
 import { apiCreateBlogCategory } from "apis/blogCategory";
 import withBase from "hocs/withBase";
@@ -14,7 +13,6 @@ const CreateBlogCategory = ({ dispatch }) => {
     formState: { errors },
     reset,
     handleSubmit,
-    watch,
   } = useForm();
 
   const handleCreateBlogCategory = async (data) => {

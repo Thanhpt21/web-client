@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { Table, Space, Tag } from "antd";
+import { Table, Space } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
-import { formatMoney } from "utils/helpers";
 import {
   useSearchParams,
   createSearchParams,
@@ -15,11 +14,10 @@ import useDebounce from "hooks/useDebounce";
 
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-import { apiDeleteShip, apigetShips } from "apis/ship";
 import UpdateShip from "./UpdateRetail";
 import { apiDeleteRetail, apigetRetails } from "apis";
 
-const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
+const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseRetail = () => {
   const navigate = useNavigate();

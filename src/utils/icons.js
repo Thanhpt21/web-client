@@ -11,7 +11,6 @@ import { GiShoppingBag } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import {
-  AiFillDashboard,
   AiFillDelete,
   AiFillEye,
   AiFillGift,
@@ -32,7 +31,6 @@ import {
   BsFillCartCheckFill,
   BsFillSuitHeartFill,
   BsReplyFill,
-  BsShield,
   BsShieldShaded,
 } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";

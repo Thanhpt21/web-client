@@ -1,28 +1,21 @@
-import {
-  apigetAllBlogs,
-  apigetBlog,
-  apigetBlogs,
-  apiLikeBlog,
-  apiDisLikeBlog,
-} from "apis";
-import { Breadcrumbs, SummaryPanel } from "components";
-import NewsItem from "components/blog/NewsItem";
+import { apigetBlog, apigetBlogs, apiLikeBlog, apiDisLikeBlog } from "apis";
+import { SummaryPanel } from "components";
 import BreadcrumbsDefault from "components/common/BreadcrumbsDefault";
 import withBase from "hocs/withBase";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { CiCalendarDate } from "react-icons/ci";
-import { FaRegEye, FaUserEdit, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaRegEye, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import {} from "react-icons/fa";
 import { createSearchParams, Link, useParams } from "react-router-dom";
-import { sortby } from "utils/contants";
+
 import { truncateText } from "utils/helpers";
 import path from "utils/path";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
-const BlogDetail = ({ dispatch, navigate, location }) => {
+const BlogDetail = ({ navigate, location }) => {
   const { current } = useSelector((state) => state.user);
   const params = useParams();
   const [data, setdata] = useState(null);

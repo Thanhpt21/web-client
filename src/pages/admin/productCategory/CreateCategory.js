@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { InputForm, ButtonField, Loading, DynamicInput } from "components";
+import React, { useEffect, useState } from "react";
+import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { validate, getBase64 } from "utils/helpers";
+import { useDispatch } from "react-redux";
+import { getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { FaRegTrashCan } from "react-icons/fa6";
 import { showModal } from "store/app/appSlice";
-import { apiCreateBlog } from "apis/blog";
+
 import { apiCreateCategory } from "apis/category";
-import { FaTrash } from "react-icons/fa";
 
 const CreateCategory = () => {
   const dispatch = useDispatch();

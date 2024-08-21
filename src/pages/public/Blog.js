@@ -1,38 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { apigetAllBlogs, apigetBlogs } from "apis";
-import { BlogFrame, Breadcrumbs, Pagination } from "components";
+import React, { useEffect, useState } from "react";
+import { apigetBlogs } from "apis";
+import { BlogFrame, Pagination } from "components";
 import withBase from "hocs/withBase";
 
-import {
-  createSearchParams,
-  Link,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getBlogs } from "store/blog/blogActions";
-import useDebounce from "hooks/useDebounce";
+import { useSelector } from "react-redux";
+
 import { useForm } from "react-hook-form";
-import { convertToSlug } from "utils/helpers";
 import path from "utils/path";
-import { IoIosArrowForward } from "react-icons/io";
 import BreadcrumbsDefault from "components/common/BreadcrumbsDefault";
 
-const Blog = ({ navigate, location, dispatch }) => {
+const Blog = ({}) => {
   const { blogCategories } = useSelector((state) => state?.app);
-  const [params] = useSearchParams();
   const [data, setdata] = useState(null);
   const [counts, setCounts] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  let { category } = useParams();
-
   const {
-    register,
     formState: { errors },
-    reset,
-    handleSubmit,
-    watch,
   } = useForm();
 
   const handleOnChange = (e) => {

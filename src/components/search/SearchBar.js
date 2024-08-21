@@ -5,7 +5,7 @@ import { getProducts } from "../../apis";
 import withBase from "../../hocs/withBase";
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = ({ navigate, dispatch, location }) => {
+const SearchBar = ({ navigate }) => {
   const [product, setProduct] = useState(null);
   const [params] = useSearchParams();
   const {

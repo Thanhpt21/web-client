@@ -1,12 +1,7 @@
-import React, { Fragment, memo, useState } from "react";
+import React, { Fragment, memo } from "react";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import {
-  AiOutlineClose,
-  AiOutlineDown,
-  AiOutlineUp,
-  AiOutlineRollback,
-} from "react-icons/ai";
+import { AiOutlineClose, AiOutlineRollback } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import avatarDF from "../../assets/avatar.jpg";
 import { memberSidebar } from "utils/contants";
@@ -17,7 +12,6 @@ const activedStyle = "px-4 py-2 flex items-center gap-2 bg-blue-500";
 const noActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
 
 const MemberSidebar = ({ sidebarOpen, setSidebarOpen }) => {
-  const [actived, setActived] = useState([]);
   const { current } = useSelector((state) => state.user);
 
   const toggleSidebar = () => {

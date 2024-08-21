@@ -2,32 +2,27 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   useParams,
   useSearchParams,
-  useNavigate,
   createSearchParams,
 } from "react-router-dom";
 import {
   Breadcrumbs,
-  SearchItem,
   ProductFrame,
   InputSelect,
   Pagination,
-  SearchBar,
-  InputForm,
 } from "../../components";
-import { getCategories, getProducts } from "../../apis";
+import { getProducts } from "../../apis";
 
 import { sortby } from "../../utils/contants";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getColor } from "store/product/productActions";
 import { convertToSlug } from "../../utils/helpers";
 import withBase from "hocs/withBase";
 import useDebounce from "hooks/useDebounce";
 import { apigetBrands } from "apis/brand";
-import FilterSidebar from "components/products/FilterSidebar";
 import { IoMdClose } from "react-icons/io";
 import { FaFilter } from "react-icons/fa";
 
-const Product = ({ dispatch, location, navigate }) => {
+const Product = ({ dispatch, navigate }) => {
   const { colors } = useSelector((state) => state?.product);
   const { categories } = useSelector((state) => state?.app);
   let arrayColors = colors?.map((obj) => ({
@@ -51,7 +46,7 @@ const Product = ({ dispatch, location, navigate }) => {
   const [selected, setselected] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
 
-  const [bestPrice, setbestPrice] = useState(null);
+  //const [bestPrice, setbestPrice] = useState(null);
 
   const [params] = useSearchParams();
 

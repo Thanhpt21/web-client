@@ -1,11 +1,9 @@
 import React, { memo, useState } from "react";
-import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { GoArrowRight } from "react-icons/go";
 
 import BotFooter from "./BotFooter";
-import { showModal } from "store/app/appSlice";
 import ModalRetail from "components/common/ModalRetail";
 
 const data = [
@@ -48,11 +46,8 @@ const info = [
 ];
 
 const Footer = () => {
-  const dispatch = useDispatch();
   const { configs, retails } = useSelector((state) => state?.app);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 

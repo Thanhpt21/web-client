@@ -1,10 +1,8 @@
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
-import { showModal } from "../../store/app/appSlice";
 import { IoMdClose } from "react-icons/io";
+import withBase from "hocs/withBase";
 
 const ModalRetail = ({ children, isOpen, onClose }) => {
-  const dispatch = useDispatch();
   if (!isOpen) return null;
 
   return (
@@ -49,4 +47,4 @@ const ModalRetail = ({ children, isOpen, onClose }) => {
   );
 };
 
-export default memo(ModalRetail);
+export default memo(withBase(ModalRetail));

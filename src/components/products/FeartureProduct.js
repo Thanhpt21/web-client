@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductCard from "./ProductCard";
-import { apiGetAllProduct, getProducts } from "../../apis";
+import { getProducts } from "../../apis";
 import ProductFrame from "./ProductFrame";
 
 const FeartureProduct = () => {

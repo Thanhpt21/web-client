@@ -1,17 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createSearchParams, NavLink, useParams } from "react-router-dom";
-import { apiUpdateCart, getProduct, getProducts } from "../../apis";
+import { apiUpdateCart, getProduct } from "../../apis";
 import {
   Breadcrumbs,
-  ButtonField,
   SelectQuantity,
   ProductExtraInfo,
   ProductInfo,
-  CustomSlider,
   TagProduct,
 } from "../../components";
 import Slider from "react-slick";
-import DOMPurify from "dompurify";
 
 import {
   convertToSlug,
@@ -47,12 +44,11 @@ const ProductDetail = ({ isQuickView, data, location, navigate, dispatch }) => {
   const params = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [relativeProduct, setrelativeProduct] = useState(null);
+  //const [relativeProduct, setrelativeProduct] = useState(null);
   const [imgCurrent, setImgCurrent] = useState(null);
   const [updatedProduct, setupdatedProduct] = useState(false);
   const [variant, setVariant] = useState(null);
   const [pid, setpid] = useState(null);
-  const [category, setcategory] = useState(null);
   const [coupon, setCoupon] = useState(null);
   const [currentProduct, setCurrentProduct] = useState({
     title: "",
@@ -93,10 +89,8 @@ const ProductDetail = ({ isQuickView, data, location, navigate, dispatch }) => {
   useEffect(() => {
     if (data && data.pid) {
       setpid(data.pid);
-      setcategory(data.category._id);
     } else if (params && params.pid) {
       setpid(params.pid);
-      setcategory(params.category);
     }
   }, [data, params]);
 

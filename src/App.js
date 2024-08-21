@@ -39,11 +39,11 @@ import {
   getRetails,
 } from "./store/app/appActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Cart, Modal, ScrollToTopButton, SocialButtons } from "./components";
+import { Cart, Modal } from "./components";
 import { showCart } from "store/app/appSlice";
 import ListBaseCategory from "pages/admin/productCategory/ListBaseCategory";
 import CreateCategory from "pages/admin/productCategory/CreateCategory";
-import { getColor } from "store/product/productActions";
+
 import {
   AboutUs,
   Blog,
