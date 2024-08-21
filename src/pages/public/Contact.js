@@ -101,15 +101,15 @@ const Contact = ({ dispatch }) => {
             <ul className="list-none p-0">
               <li className="mb-3 flex items-center gap-3">
                 <AiOutlineHome className="text-xl" />
-                <p className="text-small">{configs?.address}</p>
+                <p className="text-small">{configs?.[0]?.address}</p>
               </li>
               <li className="mb-3 flex items-center gap-3">
                 <BiPhoneCall className="text-xl" />
-                <p className="text-small">{configs?.mobile}</p>
+                <p className="text-small">{configs?.[0]?.mobile}</p>
               </li>
               <li className="mb-3 flex items-center gap-3">
                 <AiOutlineMail className="text-xl" />
-                <p className="text-small">{configs?.email}</p>
+                <p className="text-small">{configs?.[0]?.email}</p>
               </li>
               <li className="mb-3 flex items-center gap-3">
                 <BiInfoCircle className="text-xl" />

@@ -45,7 +45,7 @@ const Personal = () => {
 
   return (
     <div className="w-full px-4">
-      <header className="py-4  text-center md:text-start">
+      <header className="font-medium py-4 border-b md:text-start text-center">
         Thông tin cá nhân
       </header>
       <form

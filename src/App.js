@@ -87,7 +87,7 @@ function App() {
     AOS.refresh();
   }, []);
   return (
-    <div className="">
+    <div className="w-full">
       {isShowCart && (
         <div
           onClick={() => dispatch(showCart())}

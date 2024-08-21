@@ -11,7 +11,9 @@ const MyCart = (props) => {
 
   return (
     <div className="w-full px-4">
-      <header className="py-4 text-center md:text-start">Giỏ hàng</header>
+      <header className="font-medium py-4 border-b md:text-start text-center">
+        Giỏ hàng
+      </header>
       <div className="overflow-x-auto py-4">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">

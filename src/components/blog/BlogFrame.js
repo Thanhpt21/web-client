@@ -7,12 +7,12 @@ const BlogFrame = ({ data, navigate }) => {
   return (
     <div
       onClick={() => navigate(`/tin-tuc/${data?._id}`)}
-      className="w-full bg-white flex flex-col gap-1  cursor-pointer"
+      className="w-full bg-white flex flex-col gap-1  cursor-pointer rounded-sm p-3"
     >
       <div className="overflow-hidden rounded-2xl mb-2">
         <img
           src={data?.images || noimg}
-          className="w-full md:h-[270px] h-[110px] object-cover rounded-2xl hover:scale-105 duration-300"
+          className="w-full md:h-[220px] h-[110px] object-cover rounded-0 hover:scale-105 duration-300"
           alt=""
         />
       </div>

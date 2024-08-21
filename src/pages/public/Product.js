@@ -34,7 +34,6 @@ const Product = ({ dispatch, navigate }) => {
   const { category } = useParams();
 
   const [product, setproduct] = useState(null);
-
   const [activeClick, setactiveClick] = useState(null);
   const [sort, setsort] = useState("");
 
@@ -304,8 +303,11 @@ const Product = ({ dispatch, navigate }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-2 bg-white p-4">
         {isSidebarOpen && (
-          <div className="absolute inset-0 z-50 flex justify-end">
-            <div className="w-[350px] h-screen bg-white text-black p-6 grid grid-rows-10 fixed shadow-lg">
+          <div
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+            className="fixed  inset-0 z-50 flex justify-end"
+          >
+            <div className="w-[320px] h-screen bg-white text-black p-6 grid grid-rows-10 fixed shadow-lg">
               <header className="border-b border-gray-100 flex items-center justify-between">
                 <span>Lọc sản phẩm</span>
                 <span
@@ -498,7 +500,15 @@ const Product = ({ dispatch, navigate }) => {
         <div className="md:col-span-4">
           <div className="grid grid-cols-1 md:grid-cols-2 mb-2">
             <div className="flex justify-between items-center h-full">
-              <div className="uppercase font-bold">Tai nghe</div>
+              <div className="uppercase font-bold">
+                {
+                  categories?.find(
+                    (el) =>
+                      el.title.toLowerCase().replace(/\s+/g, "-") ===
+                      category.toLowerCase().replace(/\s+/g, "-")
+                  )?.title
+                }
+              </div>
               <button
                 onClick={toggleSidebar}
                 className="px-2 py-1 flex items-center gap-1 border bg-transparent rounded-sm md:hidden"

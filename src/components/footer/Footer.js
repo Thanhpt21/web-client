@@ -88,7 +88,10 @@ const Footer = () => {
               </div>
               <div className="text-gray-500 flex flex-col gap-4">
                 {info?.map((el) => (
-                  <div className="flex gap-2 items-center text-[12px]">
+                  <div
+                    key={el.id}
+                    className="flex gap-2 items-center text-[12px]"
+                  >
                     <span className="px-2 py-[3px] border-gray-300 border border-1 rounded-full ">
                       {el.id}
                     </span>

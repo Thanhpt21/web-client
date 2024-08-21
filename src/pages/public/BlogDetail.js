@@ -174,7 +174,7 @@ const BlogDetail = ({ navigate, location }) => {
   }, [cat]);
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-4">
       <BreadcrumbsDefault
         path1={path.HOME}
         path2={path.BLOG}
@@ -182,7 +182,7 @@ const BlogDetail = ({ navigate, location }) => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-        <div className="md:col-span-3 bg-white flex flex-col gap-4">
+        <div className="md:col-span-3 bg-white flex flex-col gap-4 p-3">
           <div className="">
             <h3 className="text-gray-900 font-medium text-[20px]">
               {data?.title}

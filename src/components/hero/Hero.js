@@ -68,7 +68,7 @@ const data = [
 ];
 
 const Hero = () => {
-  const [active, setActive] = useState(data[0]);
+  const [active, setActive] = useState(data[0] || "");
 
   const handleActive = (value) => {
     setActive(value);

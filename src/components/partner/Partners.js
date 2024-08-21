@@ -7,7 +7,7 @@ import brand5 from "../../assets/brand/br-5.png";
 
 const Partners = () => {
   return (
-    <div className="w-full py-8 mt-4 hidden md:block bg-gray-200">
+    <div className="w-full py-8 hidden md:block bg-gray-200">
       <div
         data-aos="fade-in"
         className="grid grid-cols-5 gap-3 place-items-center opacity-50"

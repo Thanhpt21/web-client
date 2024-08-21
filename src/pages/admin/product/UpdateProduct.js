@@ -59,8 +59,6 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
 
   const [watchcat, setWatchcat] = useState(null);
 
-  console.log(watchcat);
-
   useEffect(() => {
     if (valueEdit) {
       setWatchcat(valueEdit?.category._id || "");

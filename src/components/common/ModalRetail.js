@@ -12,7 +12,7 @@ const ModalRetail = ({ children, isOpen, onClose }) => {
       className="inset-0 fixed flex items-center justify-center z-50"
     >
       <div class="fixed inset-0 flex items-center justify-center z-60">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 relative">
+        <div class="bg-white p-6 rounded-lg shadow-lg  md:w-1/3 w-full relative mx-2">
           <button
             class="absolute top-3 right-3 text-gray-600 hover:text-gray-900"
             onClick={() => onClose()}

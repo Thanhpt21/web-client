@@ -7,7 +7,7 @@ const Wishlist = () => {
 
   return (
     <div className="w-full px-4 overflow-hidden">
-      <header className="py-4 border-b text-center md:text-left">
+      <header className="font-medium py-4 border-b md:text-start text-center">
         Danh sách sản phẩm yêu thích
       </header>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 py-4">

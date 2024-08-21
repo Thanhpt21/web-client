@@ -12,7 +12,10 @@ const Category = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
           {categories?.map((el) => (
-            <div className="flex flex-col justify-center items-center border border-1 border-gray-100 py-4">
+            <div
+              key={el?._id}
+              className="flex flex-col justify-center items-center border border-1 border-gray-100 py-4"
+            >
               <img className="w-15" src={el?.images} alt={el.title} />
               <NavLink
                 key={el._id}

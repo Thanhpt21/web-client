@@ -13,7 +13,7 @@ const TagProduct = ({ product, category, navigate }) => {
         {product?.tags.map((el, index, array) => (
           <span
             key={index}
-            className="hover:text-main flex text-gray-700 cursor-pointer"
+            className="hover:text-main flex text-gray-700 cursor-pointer underline"
             onClick={() => handleTagClick(el)}
           >
             {el}

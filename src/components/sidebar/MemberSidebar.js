@@ -33,8 +33,11 @@ const MemberSidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </button>
 
       {sidebarOpen && (
-        <div className="absolute inset-0 z-50">
-          <div className="w-[300px] h-screen bg-white text-black p-2 fixed shadow-lg">
+        <div
+          style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+          className="fixed inset-0 z-50"
+        >
+          <div className="w-[320px] h-screen bg-white text-black p-2 fixed shadow-lg">
             <header className="border-b border-gray-100 flex items-center justify-end">
               <span
                 onClick={() => toggleSidebar()}

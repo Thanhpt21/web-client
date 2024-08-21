@@ -55,13 +55,17 @@ const CartItem = ({
 
   return (
     <tr key={key}>
-      <td className="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis text-sm font-medium text-gray-900">
-        <div className="flex gap-2 cursor-pointer">
-          <img src={thumb} alt="thumb" className="w-24  h-24 object-contain" />
+      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+        <div className="flex flex-col sm:flex-row gap-2 cursor-pointer">
+          <img
+            src={thumb}
+            alt="thumb"
+            className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
+          />
           <div className="flex flex-col items-start gap-1">
             <span
               onClick={() => navigate(`/${convertToSlug(category)}/${pid}`)}
-              className="font-sm text-main hover:text-black"
+              className="text-main text-sm hover:text-black"
             >
               {title}
             </span>

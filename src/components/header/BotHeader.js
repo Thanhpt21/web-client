@@ -105,15 +105,15 @@ const BotHeader = ({
           <div className="md:col-span-3">
             <div className="flex items-center justify-between">
               <div className="md:hidden block">
-                <button
-                  className="p-1 border border-1 border-black"
-                  onClick={toggleMenu}
-                >
-                  {menuOpen ? <IoMdClose /> : <IoMdMenu />}
+                <button className="p-1" onClick={toggleMenu}>
+                  {menuOpen ? <IoMdClose size={24} /> : <IoMdMenu size={24} />}
                 </button>
                 {menuOpen && (
-                  <div className="absolute inset-0 z-50">
-                    <div className="w-[300px] h-screen bg-white text-black  fixed shadow-lg">
+                  <div
+                    style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+                    className="fixed inset-0 z-50"
+                  >
+                    <div className="w-[320px] h-screen bg-white text-black  fixed shadow-lg">
                       <header className="border-b border-gray-100 flex items-center justify-between px-2">
                         <span>Tài khoản</span>
                         <span

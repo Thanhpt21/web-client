@@ -38,7 +38,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const ProductDetail = ({ isQuickView, data, location, navigate, dispatch }) => {
+const ProductDetail = ({ data, location, navigate, dispatch }) => {
   const titleRef = useRef();
   const { current } = useSelector((state) => state.user);
   const params = useParams();
@@ -348,7 +348,7 @@ const ProductDetail = ({ isQuickView, data, location, navigate, dispatch }) => {
                 ({`Đã bán: ${product?.sold}`})
               </span> */}
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 flex-wrap items-center">
               <div className="flex gap-2 items-center">
                 <span className=" text-gray-500 text-sm">Thương hiệu:</span>
                 <div
@@ -548,8 +548,11 @@ const ProductDetail = ({ isQuickView, data, location, navigate, dispatch }) => {
       </div>
       <div className="grid grid-cols-1 mt-4">
         {isSidebarCoupon && (
-          <div className="absolute inset-0 z-50 flex justify-end">
-            <div className="w-[350px] h-screen bg-white text-black p-6 grid grid-rows-10 fixed shadow-lg">
+          <div
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+            className="fixed  inset-0 z-50 flex justify-end"
+          >
+            <div className="w-[320px] h-screen bg-white text-black p-6 grid grid-rows-10 fixed shadow-lg">
               <header className="border-b border-gray-100 flex items-center justify-between">
                 <span>Mã giảm giá</span>
                 <span

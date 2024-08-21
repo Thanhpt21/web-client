@@ -13,8 +13,6 @@ import { getConfig } from "store/app/appActions";
 const CreateConfig = () => {
   const { configs } = useSelector((state) => state?.app);
 
-  console.log("cf", configs);
-
   const dispatch = useDispatch();
   const [update, setUpdate] = useState(false);
 

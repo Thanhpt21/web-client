@@ -42,7 +42,10 @@ const Service = () => {
     <div data-aos="fade-in" className="py-8">
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 gap-y-8">
         {data?.map((el) => (
-          <div className="flex flex-col items-start sm:flex-row gap-4 ">
+          <div
+            key={el.id}
+            className="flex flex-col items-start sm:flex-row gap-4 "
+          >
             <img src={el.icon} className="w-10" alt="" />
             <div>
               <div className=" text-base font-bold">{el.title}</div>
