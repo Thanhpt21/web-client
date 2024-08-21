@@ -32,6 +32,7 @@ const BotHeader = ({
   location,
 }) => {
   const { configs } = useSelector((state) => state?.app);
+
   const { isLoggedIn, current } = useSelector((state) => state?.user);
   const [isShowProfileOption, setIsShowProfileOption] = useState(false);
   const [isShowCategoryOption, setIsShowCategoryOption] = useState(false);
@@ -285,7 +286,7 @@ const BotHeader = ({
               </div>
               <Link to={`/${path.HOME}`}>
                 <img
-                  src={configs?.logo || logo}
+                  src={configs?.[0]?.logo || logo}
                   alt="logo"
                   className="h-20 object-contain"
                 />

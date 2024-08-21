@@ -14,7 +14,7 @@ const BotFooter = ({ configs }) => {
           <div className="md:col-span-2 flex flex-col md:flex-row md:items-center gap-4">
             <Link to={`/${path.HOME}`} className="flex-shrink-0">
               <img
-                src={configs?.logo || logo}
+                src={configs?.[0]?.logo || logo}
                 alt="logo"
                 className="h-20 object-contain"
               />
@@ -38,13 +38,13 @@ const BotFooter = ({ configs }) => {
                   </div>
                   <div className="flex gap-1">
                     <a
-                      href={configs?.facebook}
+                      href={configs?.[0]?.facebook}
                       className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                     >
                       <FaFacebookF className="text-black group-hover:text-white transition-colors duration-300" />
                     </a>
                     <a
-                      href={configs?.youtube}
+                      href={configs?.[0]?.youtube}
                       className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                     >
                       <FaYoutube className="text-black group-hover:text-white transition-colors duration-300" />
@@ -55,14 +55,15 @@ const BotFooter = ({ configs }) => {
             </div>
             <div className="text-[10px] text-gray-600">
               <p>
-                © 2022 - Bản quyền thuộc Công ty TNHH Công nghệ {configs?.name}
+                © 2022 - Bản quyền thuộc Công ty TNHH Công nghệ{" "}
+                {configs?.[0]?.name}
               </p>
               <p>
                 Giấy phép số 79/GP-ICP-STTTT do Sở Thông tin và Truyền thông cấp
                 ngày 8/10/2012
               </p>
               <p>
-                Địa chỉ: {configs?.address}. Email: {configs?.email}
+                Địa chỉ: {configs?.[0]?.address}. Email: {configs?.[0]?.email}
               </p>
               <p>
                 Số giấy chứng nhận đăng ký kinh doanh: 0304685595, đăng ký ngày
@@ -89,14 +90,14 @@ const BotFooter = ({ configs }) => {
                 </div>
                 <div className="flex gap-1">
                   <a
-                    href={configs?.facebook}
+                    href={configs?.[0]?.facebook}
                     target="_blank"
                     className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                   >
                     <FaFacebookF className="text-black group-hover:text-white transition-colors duration-300" />
                   </a>
                   <a
-                    href={configs?.youtube}
+                    href={configs?.[0]?.youtube}
                     target="_blank"
                     className="w-10 h-10 flex items-center justify-center bg-white border-2 border-black rounded-sm transition-colors duration-300 hover:bg-black hover:border-white group"
                   >
