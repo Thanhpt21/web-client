@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
 import {
@@ -16,6 +16,8 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import UpdateShip from "./UpdateRetail";
 import { apiDeleteRetail, apigetRetails } from "apis";
+import path from "utils/path";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete } = icons;
 
@@ -152,12 +154,10 @@ const ListBaseRetail = () => {
         </div>
       )}
 
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý chi nhánh</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
-        <div className="flex w-full justify-end items-center py-4">
-          <form className="w-[40%]">
+        <div className="flex w-full justify-between items-center py-4">
+          <form className="w-[30%]">
             <InputForm
               id="q"
               register={register}
@@ -166,6 +166,15 @@ const ListBaseRetail = () => {
               placeholder="Tìm kiếm"
             />
           </form>
+          <Button
+            type="primary"
+            className="ml-auto flex items-center" // Sử dụng ml-auto để đẩy nút ra ngoài bên phải
+            onClick={() => {
+              navigate(`/${path.ADMIN}/${path.CREATE_RETAIL}`);
+            }}
+          >
+            Thêm mới
+          </Button>
         </div>
         <Table dataSource={data} columns={columns} pagination={false} />
         <div className="">

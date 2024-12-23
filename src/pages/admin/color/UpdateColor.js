@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import { apiUpdateBlogCategory } from "apis/blogCategory";
 import { apiUpdateColor } from "apis/color";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateColor = ({ valueEdit, render, setValueEdit }) => {
   const dispatch = useDispatch();
@@ -48,15 +49,10 @@ const UpdateColor = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật màu sắc</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật màu sắc"}
+        setValueEdit={setValueEdit}
+      />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateColor)}>
           <div className="w-full my-6 flex gap-4">

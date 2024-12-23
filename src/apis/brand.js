@@ -7,10 +7,11 @@ export const apigetBrands = (params) =>
     params,
   });
 
-export const apigetAllBrands = () =>
+export const apigetAllBrands = (params) =>
   axios({
-    url: "/brand/getall",
+    url: "/brand/get",
     method: "get",
+    params,
   });
 
 export const apiCreateBrand = (data) =>

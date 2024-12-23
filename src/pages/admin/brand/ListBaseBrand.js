@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
 import { apiDeleteProduct } from "apis";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
 import {
@@ -20,6 +20,8 @@ import { apiDeleteColor, apigetColors } from "apis/color";
 import UpdateColor from "./UpdateBrand";
 import { apiDeleteBrand, apigetBrands } from "apis/brand";
 import { useSelector } from "react-redux";
+import path from "utils/path";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
 
@@ -174,34 +176,43 @@ const ListBaseBrand = () => {
         </div>
       )}
 
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý thương hiệu</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
         <div className="flex w-full justify-between items-center py-4">
-          <div className="w-full">
-            <select
-              value={selectedCategory}
-              onChange={(e) => handleOnChange(e)}
-              className="form-select text-sm"
-            >
-              <option value="">Tất cả</option>
-              {categories?.map((el) => (
-                <option key={el._id} value={el.title}>
-                  {el.title}
-                </option>
-              ))}
-            </select>
+          <div className="flex w-[70%] gap-4">
+            <form className="w-full">
+              <InputForm
+                id="q"
+                register={register}
+                errors={errors}
+                fullwidth
+                placeholder="Tìm kiếm"
+              />
+            </form>
+            <div className="w-full">
+              <select
+                value={selectedCategory}
+                onChange={(e) => handleOnChange(e)}
+                className="form-select text-sm"
+              >
+                <option value="">Tất cả</option>
+                {categories?.map((el) => (
+                  <option key={el._id} value={el.title}>
+                    {el.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <form className="w-[40%]">
-            <InputForm
-              id="q"
-              register={register}
-              errors={errors}
-              fullwidth
-              placeholder="Tìm kiếm"
-            />
-          </form>
+          <Button
+            type="primary"
+            className="ml-auto flex items-center" // Sử dụng ml-auto để đẩy nút ra ngoài bên phải
+            onClick={() => {
+              navigate(`/${path.ADMIN}/${path.CREATE_BRAND}`);
+            }}
+          >
+            Thêm mới
+          </Button>
         </div>
         <Table dataSource={data} columns={columns} pagination={false} />
         <div className="">

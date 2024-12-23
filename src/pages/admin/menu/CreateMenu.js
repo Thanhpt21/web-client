@@ -183,7 +183,7 @@ const CreateMenu = () => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
+      <h1 className="h-[60px] flex justify-between items-center text-xl px-4 border-b">
         <span>{isEditing ? "Cập nhật menu" : "Tạo mới menu"}</span>
       </h1>
       <div className="p-4 flex gap-2">

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
 import { apiUpdateBlogCategory } from "apis/blogCategory";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateBlogCategory = ({ valueEdit, render, setValueEdit }) => {
   const dispatch = useDispatch();
@@ -46,15 +47,10 @@ const UpdateBlogCategory = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật danh mục tin tức</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật danh mục tin tức"}
+        setValueEdit={setValueEdit}
+      />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateBlogCategory)}>
           <div className="w-full my-6 flex gap-4">

@@ -7,6 +7,7 @@ import avatarDF from "../../assets/avatar.jpg";
 import { apiUpdateCurrent } from "apis";
 import { getCurrent } from "store/user/userActions";
 import { toast } from "react-toastify";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const PersonalAdmin = () => {
   const {
@@ -45,9 +46,7 @@ const PersonalAdmin = () => {
 
   return (
     <div className="w-full px-4">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý tài khoản</span>
-      </h1>
+      <HeaderPageAdmin title={"Quản lý tài khoản"} />
       <form
         onSubmit={handleSubmit(handleUpdateInfo)}
         className="w-3/5 mx-auto py-8 flex flex-col gap-4"

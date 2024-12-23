@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import { apiUpdateCoupon } from "apis/coupon";
 import moment from "moment";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateCoupon = ({ valueEdit, render, setValueEdit }) => {
   const dispatch = useDispatch();
@@ -62,15 +63,11 @@ const UpdateCoupon = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật mã giảm giá</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật mã giảm giá"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateCoupon)}>
           <div className="w-full my-6 flex gap-4">

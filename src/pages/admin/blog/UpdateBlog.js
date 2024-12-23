@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
 import { apiUpdateBlog } from "apis/blog";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const UpdateBlog = ({ valueEdit, render, setValueEdit }) => {
   const { blogCategories } = useSelector((state) => state?.app);
@@ -125,9 +126,8 @@ const UpdateBlog = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật tin tức</span>
-      </h1>
+      <HeaderPageAdmin title={"Cập nhật"} />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateBlog)}>
           <div className="flex flex-col gap-2 ">

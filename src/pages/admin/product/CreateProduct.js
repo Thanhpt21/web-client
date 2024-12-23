@@ -10,17 +10,17 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { apiCreateProduct, apigetCategories } from "apis";
+import { apiCreateProduct, apigetAllCategories } from "apis";
 import { showModal } from "store/app/appSlice";
 import { getColor } from "store/product/productActions";
 import withBase from "hocs/withBase";
 import { statusProduct } from "utils/contants";
 import { FaTrash } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
+import { apigetAllBrands } from "apis/brand";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const CreateProduct = ({ dispatch }) => {
-  const { categories } = useSelector((state) => state?.app);
-
   const { colors } = useSelector((state) => state?.product);
   let arrayColors = colors?.map((obj) => ({
     title: obj.title,
@@ -45,6 +45,10 @@ const CreateProduct = ({ dispatch }) => {
   });
 
   const [dataCate, setDataCate] = useState(null);
+  const [dataBrand, setDataBrand] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+  const [watchcat, setWatchcat] = useState(null);
+
   const [payload, setpayload] = useState({
     description: "",
   });
@@ -161,8 +165,11 @@ const CreateProduct = ({ dispatch }) => {
     }
   };
 
-  const [disabled, setDisabled] = useState(true);
-  const [watchcat, setWatchcat] = useState(null);
+  useEffect(() => {
+    if (watchcat) {
+      fetchBrandsByCategory(watchcat); // Khi categoryId thay đổi, gọi API lấy thương hiệu
+    }
+  }, [watchcat]);
 
   const handleChangeCat = (e) => {
     setDisabled(false);
@@ -170,9 +177,21 @@ const CreateProduct = ({ dispatch }) => {
   };
 
   const fetchCategory = async () => {
-    const response = await apigetCategories();
+    const response = await apigetAllCategories();
     if (response.success) {
-      setDataCate(response.categorys);
+      setDataCate(response.categoryData);
+    }
+  };
+
+  const fetchBrandsByCategory = async (categoryId) => {
+    // Gọi API để lấy danh sách thương hiệu của categoryId
+    const response = await apigetAllBrands({ categoryId });
+    if (response.success) {
+      const filteredBrands = response.brandData.filter((brand) => {
+        return brand.category === categoryId; // So sánh category với categoryId
+      });
+
+      setDataBrand(filteredBrands); // Cập nhật danh sách thương hiệu đã lọc
     }
   };
 
@@ -215,9 +234,7 @@ const CreateProduct = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Tạo sản phẩm</span>
-      </h1>
+      <HeaderPageAdmin title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateProduct)}>
           <div className="flex flex-col gap-2 ">
@@ -365,7 +382,7 @@ const CreateProduct = ({ dispatch }) => {
             <SelectField
               handleChange={(e) => handleChangeCat(e)}
               label="Danh mục"
-              options={categories?.map((el) => ({
+              options={dataCate?.map((el) => ({
                 code: el._id,
                 value: el.title,
               }))}
@@ -378,14 +395,10 @@ const CreateProduct = ({ dispatch }) => {
             />
             <SelectField
               label="Thương hiệu"
-              options={
-                dataCate
-                  ?.find((el) => el._id === watchcat)
-                  ?.brands?.map((b) => ({
-                    code: b._id,
-                    value: b.title,
-                  })) || []
-              } // Cung cấp mảng trống nếu không có thương hiệu
+              options={dataBrand?.map((el) => ({
+                code: el._id,
+                value: el.title,
+              }))}
               register={register}
               style="flex-1"
               id="brand"

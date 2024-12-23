@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
 import { apiDeleteProduct } from "apis";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
 import {
@@ -18,6 +18,8 @@ import { toast } from "react-toastify";
 import { apiDeleteBlog, apigetBlogs } from "apis/blog";
 import { apiDeleteColor, apigetColors } from "apis/color";
 import UpdateColor from "./UpdateColor";
+import path from "utils/path";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
 
@@ -163,12 +165,10 @@ const ListBaseColor = () => {
         </div>
       )}
 
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý màu sắc</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
-        <div className="flex w-full justify-end items-center py-4">
-          <form className="w-[40%]">
+        <div className="flex w-full justify-between items-center py-4">
+          <form className="w-[30%]">
             <InputForm
               id="q"
               register={register}
@@ -177,6 +177,15 @@ const ListBaseColor = () => {
               placeholder="Tìm kiếm"
             />
           </form>
+          <Button
+            type="primary"
+            className="ml-auto flex items-center" // Sử dụng ml-auto để đẩy nút ra ngoài bên phải
+            onClick={() => {
+              navigate(`/${path.ADMIN}/${path.CREATE_COLOR}`);
+            }}
+          >
+            Thêm mới
+          </Button>
         </div>
         <Table dataSource={data} columns={columns} pagination={false} />
         <div className="">

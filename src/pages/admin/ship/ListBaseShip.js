@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { Table, Space, Tag } from "antd";
+import { Table, Space, Tag, Button } from "antd";
 import moment from "moment";
 import icons from "utils/icons";
 import { formatMoney } from "utils/helpers";
@@ -17,6 +17,8 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { apiDeleteShip, apigetShips } from "apis/ship";
 import UpdateShip from "./UpdateShip";
+import path from "utils/path";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete } = icons;
 
@@ -154,12 +156,10 @@ const ListBaseShip = () => {
         </div>
       )}
 
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý phí ship</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
-        <div className="flex w-full justify-end items-center py-4">
-          <form className="w-[40%]">
+        <div className="flex w-full justify-between items-center py-4">
+          <form className="w-[30%]">
             <InputForm
               id="q"
               register={register}
@@ -168,6 +168,15 @@ const ListBaseShip = () => {
               placeholder="Tìm kiếm"
             />
           </form>
+          <Button
+            type="primary"
+            className="ml-auto flex items-center" // Sử dụng ml-auto để đẩy nút ra ngoài bên phải
+            onClick={() => {
+              navigate(`/${path.ADMIN}/${path.CREATE_SHIP}`);
+            }}
+          >
+            Thêm mới
+          </Button>
         </div>
         <Table dataSource={data} columns={columns} pagination={false} />
         <div className="">

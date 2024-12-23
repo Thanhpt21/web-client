@@ -56,7 +56,19 @@ const History = ({ navigate, location }) => {
         return record?.products?.map((el) => (
           <span key={el?._id} className="flex flex-col mb-1">
             <span>{`${el?.title} -  ${el?.color}`}</span>
-            <span>{`x${el?.quantity} - ${formatMoney(el?.price) + "đ"}`}</span>
+            <span>{`x${el?.quantity}`}</span>
+            <span>
+              {el?.discount > 0 ? (
+                <>
+                  <span>{formatMoney(el?.discount) + "đ"}</span>
+                  <span className="line-through ml-2">
+                    {formatMoney(el?.price) + "đ"}
+                  </span>
+                </>
+              ) : (
+                <span>{formatMoney(el?.price) + "đ"}</span>
+              )}
+            </span>
           </span>
         ));
       },
@@ -72,12 +84,14 @@ const History = ({ navigate, location }) => {
               record?.ship && record?.ship?.price ? record?.ship?.price : 25000
             ) + "đ"}
           </span>
-          <span className="font-medium">{`${formatMoney(
-            item +
-              (record?.ship && record?.ship?.price
-                ? record?.ship?.price
-                : 25000)
-          )} đ`}</span>
+          {record?.coupon ? (
+            <span>
+              Mã giảm giá:
+              {record?.coupon?.name} -{" "}
+              {formatMoney(record?.coupon?.discount) + "đ"}
+            </span>
+          ) : null}
+          <span className="font-medium">{`${formatMoney(item)} đ`}</span>
         </span>
       ),
     },

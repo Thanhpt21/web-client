@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import UpdateUser from "./UpdateUser";
 import { toast } from "react-toastify";
 import withBase from "hocs/withBase";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseUser = ({ navigate, location }) => {
@@ -192,9 +193,7 @@ const ListBaseUser = ({ navigate, location }) => {
           />
         </div>
       )}
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Quản lý người dùng</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="px-4 mt-4">
         <div className="flex w-full justify-end items-center py-4">
           <form className="w-[30%]">

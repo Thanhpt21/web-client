@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { InputForm, Pagination } from "components";
 import { useForm } from "react-hook-form";
 import { apiDeleteProduct, getProducts } from "apis";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
 import icons from "utils/icons";
 import {
   useSearchParams,
@@ -19,6 +19,7 @@ import { formatMoney } from "utils/helpers";
 import { useSelector } from "react-redux";
 
 import CreateCustomizeVariant from "./CreateCustomizeVariant";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
 
@@ -228,35 +229,49 @@ const ListBaseProduct = () => {
           />
         </div>
       )}
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý sản phẩm</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
-        <div className="flex w-full justify-end items-center py-4">
-          <div className="w-full">
-            <select
-              value={selectedCategory}
-              onChange={(e) => handleOnChange(e)}
-              className="form-select text-sm"
-            >
-              <option value="">Tất cả</option>
-              {categories?.map((el) => (
-                <option key={el._id} value={el.title}>
-                  {el.title}
-                </option>
-              ))}
-            </select>
+        <div className="flex w-full justify-between items-center py-4">
+          {/* Phần bên trái chứa select và input tìm kiếm */}
+          <div className="flex w-[70%] gap-4">
+            {/* Input tìm kiếm */}
+            <form className="w-full">
+              <InputForm
+                id="q"
+                register={register}
+                errors={errors}
+                fullwidth
+                italic
+                placeholder="Tìm sản phẩm"
+              />
+            </form>
+            {/* Dropdown Select */}
+            <div className="w-full">
+              <select
+                value={selectedCategory}
+                onChange={(e) => handleOnChange(e)}
+                className="form-select text-sm"
+              >
+                <option value="">Tất cả</option>
+                {categories?.map((el) => (
+                  <option key={el._id} value={el.title}>
+                    {el.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <form className="w-[40%]">
-            <InputForm
-              id="q"
-              register={register}
-              errors={errors}
-              fullwidth
-              italic
-              placeholder="Tìm sản phẩm"
-            />
-          </form>
+
+          {/* Nút Thêm mới nằm bên phải */}
+          <Button
+            type="primary"
+            className="ml-auto flex items-center" // Sử dụng ml-auto để đẩy nút ra ngoài bên phải
+            onClick={() => {
+              navigate(`/${path.ADMIN}/${path.CREATE_PRODUCT}`);
+            }}
+          >
+            Thêm mới
+          </Button>
         </div>
         <Table dataSource={data} columns={columns} pagination={false} />
         <div>

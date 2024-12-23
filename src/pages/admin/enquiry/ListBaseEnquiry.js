@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { apiDeleteEnquiry, apigetEnquirys } from "apis/enquiry";
 import { statusEnquiry } from "utils/contants";
 import UpdateEnquiry from "./UpdateEnquiry";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete } = icons;
 
@@ -166,9 +167,7 @@ const ListBaseEnquiry = () => {
         </div>
       )}
 
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý liên hệ</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className="">
         <div className="flex w-full justify-end items-center py-4">
           <form className="w-[40%]">

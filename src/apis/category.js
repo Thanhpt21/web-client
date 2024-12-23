@@ -7,6 +7,12 @@ export const apigetCategories = (params) =>
     params,
   });
 
+export const apigetAllCategories = () =>
+  axios({
+    url: "/category/get",
+    method: "get",
+  });
+
 export const apiCreateCategory = (data) =>
   axios({
     url: "/category/",

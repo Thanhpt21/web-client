@@ -12,12 +12,12 @@ import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
-import { apiUpdateBlogCategory } from "apis/blogCategory";
-import { apiUpdateColor } from "apis/color";
 import { apiUpdateBrand } from "apis/brand";
+import { apigetAllCategories } from "apis";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateBrand = ({ valueEdit, render, setValueEdit }) => {
-  const { categories } = useSelector((state) => state?.app);
+  console.log("check valueEdit", valueEdit);
   const dispatch = useDispatch();
   const {
     register,
@@ -25,17 +25,30 @@ const UpdateBrand = ({ valueEdit, render, setValueEdit }) => {
     reset,
     handleSubmit,
     watch,
+    setValue,
   } = useForm();
+  const [dataCate, setDataCate] = useState(null);
+
+  const fetchCategory = async () => {
+    const response = await apigetAllCategories();
+    if (response.success) {
+      setDataCate(response.categoryData);
+    }
+  };
 
   useEffect(() => {
-    reset({
-      title: valueEdit?.title || "",
-      category: valueEdit?.category._id || "",
-    });
+    fetchCategory();
+    if (valueEdit) {
+      setValue("title", valueEdit?.title || "");
+      setValue("category", valueEdit?.category?._id || "");
+      setPreview({
+        images: valueEdit?.images || "",
+      });
+    }
     setPreview({
       images: valueEdit?.images || "",
     });
-  }, []);
+  }, [valueEdit, setValue]);
 
   const [preview, setPreview] = useState({
     images: null,
@@ -74,15 +87,11 @@ const UpdateBrand = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật thương hiệu</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật thương hiệu"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateBrand)}>
           <div className="flex flex-col gap-2 ">
@@ -125,7 +134,7 @@ const UpdateBrand = ({ valueEdit, render, setValueEdit }) => {
             />
             <SelectField
               label="Danh mục"
-              options={categories?.map((el) => ({
+              options={dataCate?.map((el) => ({
                 code: el._id,
                 value: el.title,
               }))}
@@ -135,6 +144,8 @@ const UpdateBrand = ({ valueEdit, render, setValueEdit }) => {
               validate={{ required: "Vui lòng chọn danh mục" }}
               errors={errors}
               fullwidth
+              value={watch("category")}
+              handleChange={(e) => setValue("category", e.target.value)}
             />
           </div>
 

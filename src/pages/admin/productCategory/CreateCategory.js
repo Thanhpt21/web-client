@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
+import { getBase64 } from "utils/helpers";
 
 import { apiCreateCategory } from "apis/category";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const CreateCategory = () => {
   const dispatch = useDispatch();
@@ -55,12 +56,10 @@ const CreateCategory = () => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Tạo danh mục</span>
-      </h1>
+      <HeaderPageAdmin title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateCategory)}>
-          <div className="flex flex-col gap-2 ">
+          <div className="flex flex-col gap-2">
             <label className="" htmlFor="images">
               Upload ảnh
             </label>

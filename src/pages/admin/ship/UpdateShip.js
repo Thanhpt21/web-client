@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
 import { apiUpdateShip } from "apis/ship";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateShip = ({ valueEdit, render, setValueEdit }) => {
   const dispatch = useDispatch();
@@ -39,15 +40,11 @@ const UpdateShip = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật phí ship</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật phí vận chuyển"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateShip)}>
           <div className="w-full my-6 flex gap-4">

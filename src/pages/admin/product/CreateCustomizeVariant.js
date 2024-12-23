@@ -100,7 +100,7 @@ const CreateCustomizeVariant = ({ variant, setVariant, render }) => {
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
+      <h1 className="h-[60px] flex justify-between items-center text-xl px-4 border-b">
         <span>Cập nhật biến thể</span>
         <span
           className="text-main hover:underline cursor-pointer"

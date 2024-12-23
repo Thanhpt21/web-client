@@ -1,5 +1,6 @@
 import { apiUpdateUserByAdmin } from "apis";
 import { ButtonField, Loading, SelectField } from "components";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 import withBase from "hocs/withBase";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -38,15 +39,11 @@ const UpdateUser = ({ dispatch, valueEdit, render, setValueEdit }) => {
   }, []);
   return (
     <div className="w-full flex flex-col gap-4 relative">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật tài khoản</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật tài khoản"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateUser)}>
           <div className="mt-8">

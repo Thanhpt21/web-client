@@ -5,6 +5,7 @@ import {
   apiGetUsers,
   getProducts,
 } from "apis";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
@@ -50,9 +51,8 @@ const Dashboard = () => {
 
   return (
     <div className="w-full">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý mã giảm giá</span>
-      </h1>
+      <HeaderPageAdmin title={"Thống kê"} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
         <div className="bg-white border border-gray-300 p-3 rounded-lg shadow-md">
           <h2 className="text-nd font-medium mb-2">Tổng số sản phẩm</h2>

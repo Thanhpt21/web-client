@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import withBase from "hocs/withBase";
 import { apiCreateColor } from "apis/color";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const CreateColor = ({ dispatch }) => {
   const {
@@ -30,9 +31,7 @@ const CreateColor = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Tạo màu sắc</span>
-      </h1>
+      <HeaderPageAdmin title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateColor)}>
           <div className="w-full my-6 flex gap-4">

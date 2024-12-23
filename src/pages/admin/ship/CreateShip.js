@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import withBase from "hocs/withBase";
 import { apiCreateShip } from "apis/ship";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const CreateShip = ({ dispatch }) => {
   const {
@@ -29,9 +30,7 @@ const CreateShip = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Tạo phí ship</span>
-      </h1>
+      <HeaderPageAdmin title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateShip)}>
           <div className="w-full my-6 flex gap-4">

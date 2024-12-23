@@ -8,6 +8,7 @@ import { showModal } from "store/app/appSlice";
 import { apiUpdateVariant } from "apis";
 import { getColor } from "store/product/productActions";
 import { useLocation } from "react-router-dom";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateCustomizeVariant = ({ render, valueEdit, setValueEdit }) => {
   const location = useLocation();
@@ -151,15 +152,11 @@ const UpdateCustomizeVariant = ({ render, valueEdit, setValueEdit }) => {
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật biến thể</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật biến thể"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form
           onSubmit={handleSubmit(handleUpdateVariant)}

@@ -7,9 +7,10 @@ import withBase from "hocs/withBase";
 import { useSelector } from "react-redux";
 import { apiCreateBrand } from "apis/brand";
 import { getBase64 } from "utils/helpers";
+import { apigetAllCategories } from "apis";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const CreateBrand = ({ dispatch }) => {
-  const { categories } = useSelector((state) => state?.app);
   const {
     register,
     formState: { errors },
@@ -17,6 +18,19 @@ const CreateBrand = ({ dispatch }) => {
     handleSubmit,
     watch,
   } = useForm();
+
+  const [dataCate, setDataCate] = useState(null);
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  const fetchCategory = async () => {
+    const response = await apigetAllCategories();
+    if (response.success) {
+      setDataCate(response.categoryData);
+    }
+  };
 
   const [preview, setPreview] = useState({
     images: null,
@@ -54,9 +68,7 @@ const CreateBrand = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Tạo thương hiệu</span>
-      </h1>
+      <HeaderPageAdmin title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateBrand)}>
           <div className="flex flex-col gap-2 ">
@@ -99,7 +111,7 @@ const CreateBrand = ({ dispatch }) => {
             />
             <SelectField
               label="Danh mục"
-              options={categories?.map((el) => ({
+              options={dataCate?.map((el) => ({
                 code: el._id,
                 value: el.title,
               }))}

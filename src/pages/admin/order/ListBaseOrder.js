@@ -12,6 +12,7 @@ import { apiGetOrdersByAdmin } from "apis";
 import icons from "utils/icons";
 import UpdateOrder from "./UpdateOrder";
 import { Tag } from "antd";
+import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
 
 const { BiEdit, AiFillDelete } = icons;
 
@@ -157,10 +158,7 @@ const ListBaseOrder = ({ navigate, location }) => {
       title: "Tổng",
       dataIndex: "total",
       render: (item, record, index) => (
-        <span className="font-medium">{`${formatMoney(
-          item +
-            (record?.ship && record?.ship?.price ? record?.ship?.price : 25000)
-        )}đ`}</span>
+        <span className="font-medium">{`${formatMoney(item)}đ`}</span>
       ),
     },
 
@@ -244,9 +242,7 @@ const ListBaseOrder = ({ navigate, location }) => {
           />
         </div>
       )}
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b ">
-        <span>Quản lý đơn hàng</span>
-      </h1>
+      <HeaderPageAdmin title={"Danh sách"} />
       <div className=" p-2 bg-white rounded-md shadow-sm">
         {hasNewOrderToday ? (
           <span>

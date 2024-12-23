@@ -12,32 +12,32 @@ import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
-import { apigetCategories, apiUpdateProduct } from "apis";
+import { apigetAllCategories, apigetCategories, apiUpdateProduct } from "apis";
 import { getColor } from "store/product/productActions";
 import { statusProduct } from "utils/contants";
 import { BiEdit } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
+import { apigetAllBrands } from "apis/brand";
+import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
   const { categories } = useSelector((state) => state?.app);
   const { colors } = useSelector((state) => state?.product);
   const [dataCate, setDataCate] = useState(null);
+  const [dataBrand, setDataBrand] = useState([]);
+  const [watchcat, setWatchcat] = useState(null);
+
+  const fetchCategory = async () => {
+    const response = await apigetAllCategories();
+    if (response.success) {
+      setDataCate(response.categoryData);
+    }
+  };
+
   let arrayColors = colors?.map((obj) => ({
     title: obj.title,
     _id: obj._id,
   }));
-
-  let arrayCategory = categories?.map((obj) => ({
-    title: obj.title,
-    _id: obj._id,
-  }));
-
-  const fetchCategory = async () => {
-    const response = await apigetCategories();
-    if (response.success) {
-      setDataCate(response.categorys);
-    }
-  };
 
   const dispatch = useDispatch();
   const {
@@ -46,6 +46,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
     reset,
     handleSubmit,
     watch,
+    setValue,
   } = useForm({
     defaultValues: {
       discount: 0, // Thiết lập giá trị mặc định cho form
@@ -57,19 +58,41 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
     fetchCategory();
   }, []);
 
-  const [watchcat, setWatchcat] = useState(null);
+  useEffect(() => {
+    if (watchcat) {
+      fetchBrandsByCategory(watchcat); // Khi categoryId thay đổi, gọi API lấy thương hiệu
+    }
+  }, [watchcat]);
 
+  const handleChangeCat = (e) => {
+    // setDisabled(false);
+    setWatchcat(e.target.value);
+  };
+
+  const fetchBrandsByCategory = async (categoryId) => {
+    // Gọi API để lấy danh sách thương hiệu của categoryId
+    const response = await apigetAllBrands({ categoryId });
+    if (response.success) {
+      const filteredBrands = response.brandData.filter((brand) => {
+        return brand.category === categoryId; // So sánh category với categoryId
+      });
+
+      setDataBrand(filteredBrands); // Cập nhật danh sách thương hiệu đã lọc
+    }
+  };
   useEffect(() => {
     if (valueEdit) {
-      setWatchcat(valueEdit?.category._id || "");
+      setValue("category", valueEdit?.category?._id || "");
+      setWatchcat(valueEdit?.category?._id || ""); // Lưu id của category đang được chọn
+      fetchBrandsByCategory(valueEdit?.category?._id);
       reset({
+        category: valueEdit?.category?._id || "",
         title: valueEdit.title || "",
         code: valueEdit.code || "",
         price: valueEdit.price || 0,
         discount: valueEdit.discount || 0,
         color: valueEdit?.color?._id || "",
         status: valueEdit.status || "",
-        category: valueEdit?.category._id || "", // Set giá trị mặc định cho category
         tags: valueEdit.tags || [],
       });
 
@@ -88,7 +111,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
       });
       setTags(valueEdit.tags || []);
     }
-  }, [valueEdit, reset]);
+  }, [valueEdit, reset, setValue]);
 
   const [invalidField, setinvalidField] = useState([]);
   const [payload, setpayload] = useState({
@@ -204,16 +227,6 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
     }
   };
 
-  const handleChangeCat = (e) => {
-    const selectedCategory = categories?.find(
-      (el) => el.title === e.target.value
-    );
-    setWatchcat(e.target.value);
-    reset({
-      brand: selectedCategory?.brand ? selectedCategory.brand[0] : "", // Set giá trị mặc định cho brand khi category thay đổi
-    });
-  };
-
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
@@ -252,15 +265,11 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
 
   return (
     <div className="w-full ">
-      <h1 className="h-[75px] flex justify-between items-center text-xl px-4 border-b">
-        <span>Cập nhật sản phẩm</span>
-        <span
-          className="text-main hover:underline cursor-pointer"
-          onClick={() => setValueEdit(null)}
-        >
-          Hủy
-        </span>
-      </h1>
+      <HeaderWithCancelButton
+        title={"Cập nhật sản phẩm"}
+        setValueEdit={setValueEdit}
+      />
+
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateProduct)}>
           <div className="flex flex-col gap-2 ">
@@ -405,9 +414,8 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
           </div>
           <div className="w-full my-6 flex gap-4">
             <SelectField
-              handleChange={(e) => handleChangeCat(e)}
               label="Danh mục"
-              options={arrayCategory?.map((el) => ({
+              options={dataCate?.map((el) => ({
                 code: el._id,
                 value: el.title,
               }))}
@@ -417,17 +425,18 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
               validate={{ required: "Vui lòng chọn danh mục" }}
               errors={errors}
               fullwidth
+              value={watch("category")}
+              handleChange={(e) => {
+                handleChangeCat(e);
+                setValue("category", e.target.value);
+              }}
             />
             <SelectField
               label="Thương hiệu"
-              options={
-                dataCate
-                  ?.find((el) => el._id === watchcat)
-                  ?.brands?.map((b) => ({
-                    code: b._id,
-                    value: b.title,
-                  })) || []
-              } // Cung cấp mảng trống nếu không có thương hiệu
+              options={dataBrand?.map((el) => ({
+                code: el._id,
+                value: el.title,
+              }))}
               register={register}
               style="flex-1"
               id="brand"

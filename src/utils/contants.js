@@ -205,19 +205,10 @@ export const adminSidebar = [
   },
   {
     id: 4,
-    type: "PARENT",
+    type: "SINGLE",
     text: "Sản phẩm",
+    path: `/${path.ADMIN}/${path.MANAGE_PRODUCT}`,
     icon: <MdProductionQuantityLimits />,
-    submenu: [
-      {
-        text: "Tạo",
-        path: `/${path.ADMIN}/${path.CREATE_PRODUCT}`,
-      },
-      {
-        text: "Quản lý",
-        path: `/${path.ADMIN}/${path.MANAGE_PRODUCT}`,
-      },
-    ],
   },
   {
     id: 5,
@@ -226,19 +217,11 @@ export const adminSidebar = [
     icon: <BiCategory />,
     submenu: [
       {
-        text: "Tạo danh mục sản phẩm",
-        path: `/${path.ADMIN}/${path.CREATE_CATEGORY_PRODUCT}`,
-      },
-      {
-        text: "Quản lý danh mục sản phẩm",
+        text: "Sản phẩm",
         path: `/${path.ADMIN}/${path.MANAGE_CATEGORY_PRODUCT}`,
       },
       {
-        text: "Tạo danh mục tin tức",
-        path: `/${path.ADMIN}/${path.CREATE_CATEGORY_BLOG}`,
-      },
-      {
-        text: "Quản lý danh mục tin tức",
+        text: "Tin tức",
         path: `/${path.ADMIN}/${path.MANAGE_CATEGORY_BLOG}`,
       },
     ],
@@ -246,35 +229,17 @@ export const adminSidebar = [
 
   {
     id: 6,
-    type: "PARENT",
+    type: "SINGLE",
     text: "Tin tức",
+    path: `/${path.ADMIN}/${path.MANAGE_BLOG}`,
     icon: <PiNewspaperClippingLight />,
-    submenu: [
-      {
-        text: "Tạo",
-        path: `/${path.ADMIN}/${path.CREATE_BLOG}`,
-      },
-      {
-        text: "Quản lý",
-        path: `/${path.ADMIN}/${path.MANAGE_BLOG}`,
-      },
-    ],
   },
   {
     id: 7,
-    type: "PARENT",
+    type: "SINGLE",
     text: "Màu sắc",
+    path: `/${path.ADMIN}/${path.MANAGE_COLOR}`,
     icon: <IoColorPaletteOutline />,
-    submenu: [
-      {
-        text: "Tạo",
-        path: `/${path.ADMIN}/${path.CREATE_COLOR}`,
-      },
-      {
-        text: "Quản lý",
-        path: `/${path.ADMIN}/${path.MANAGE_COLOR}`,
-      },
-    ],
   },
   {
     id: 8,
@@ -283,19 +248,11 @@ export const adminSidebar = [
     icon: <RiCoupon2Line />,
     submenu: [
       {
-        text: "Tạo mã giảm giá",
-        path: `/${path.ADMIN}/${path.CREATE_COUPON}`,
-      },
-      {
-        text: "Quản lý mã giảm giá",
+        text: "Mã giảm giá",
         path: `/${path.ADMIN}/${path.MANAGE_COUPON}`,
       },
       {
-        text: "Tạo phí ship",
-        path: `/${path.ADMIN}/${path.CREATE_SHIP}`,
-      },
-      {
-        text: "Quản lý phí ship",
+        text: "Phí vận chuyển",
         path: `/${path.ADMIN}/${path.MANAGE_SHIP}`,
       },
     ],
@@ -309,22 +266,20 @@ export const adminSidebar = [
   },
   {
     id: 10,
-    type: "PARENT",
+    type: "SINGLE",
     text: "Thương hiệu",
+    path: `/${path.ADMIN}/${path.MANAGE_BRAND}`,
     icon: <MdOutlineStorefront />,
-    submenu: [
-      {
-        text: "Tạo",
-        path: `/${path.ADMIN}/${path.CREATE_BRAND}`,
-      },
-      {
-        text: "Quản lý",
-        path: `/${path.ADMIN}/${path.MANAGE_BRAND}`,
-      },
-    ],
   },
   {
     id: 11,
+    type: "SINGLE",
+    text: "Chi nhánh",
+    path: `/${path.ADMIN}/${path.MANAGE_RETAIL}`,
+    icon: <IoStorefrontSharp />,
+  },
+  {
+    id: 12,
     type: "PARENT",
     text: "Cài đặt",
     icon: <IoSettingsOutline />,
@@ -336,22 +291,6 @@ export const adminSidebar = [
       {
         text: "Menu",
         path: `/${path.ADMIN}/${path.CREATE_MENU}`,
-      },
-    ],
-  },
-  {
-    id: 12,
-    type: "PARENT",
-    text: "Chi nhánh",
-    icon: <IoStorefrontSharp />,
-    submenu: [
-      {
-        text: "Tạo",
-        path: `/${path.ADMIN}/${path.CREATE_RETAIL}`,
-      },
-      {
-        text: "Quản lý",
-        path: `/${path.ADMIN}/${path.MANAGE_RETAIL}`,
       },
     ],
   },
