@@ -45,6 +45,8 @@ const path = {
   CREATE_RETAIL: "create-retail",
   MANAGE_PERMISSION: "manage-permission",
   CREATE_PERMISSION: "create-permission",
+  MANAGE_SIZE: "manage-size",
+  CREATE_SIZE: "create-size",
   //member
   MEMBER: "member",
   PERSONAL: "personal",

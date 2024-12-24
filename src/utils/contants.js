@@ -3,6 +3,7 @@ import icons from "./icons";
 import { RiCoupon2Line } from "react-icons/ri";
 import { MdOutlineStorefront } from "react-icons/md";
 import { IoStorefrontSharp } from "react-icons/io5";
+import { IoIosResize } from "react-icons/io";
 
 const {
   BsShieldShaded,
@@ -240,6 +241,13 @@ export const adminSidebar = [
     text: "Màu sắc",
     path: `/${path.ADMIN}/${path.MANAGE_COLOR}`,
     icon: <IoColorPaletteOutline />,
+  },
+  {
+    id: 13,
+    type: "SINGLE",
+    text: "Kích thước",
+    path: `/${path.ADMIN}/${path.MANAGE_SIZE}`,
+    icon: <IoIosResize />,
   },
   {
     id: 8,

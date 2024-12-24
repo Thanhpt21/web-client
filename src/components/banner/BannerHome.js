@@ -2,14 +2,14 @@ import React from "react";
 import headphone from "../../assets/banner/banner.png";
 
 const data = {
-  discount: "30% OFF",
+  discount: "30% GIẢM GIÁ",
   title: "Fine Smile",
-  date: "10 Jan to 28 Jan",
+  date: "10 Tháng 1 đến 28 Tháng 1",
   image: headphone,
   title2: "Air Solo Bass",
-  title3: "Winter Sale",
+  title3: "Khuyến Mãi Mùa Đông",
   title4:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque reiciendis",
+    "Khám phá các ưu đãi hấp dẫn trong dịp mùa đông này. Đừng bỏ lỡ cơ hội sở hữu sản phẩm chất lượng với giá ưu đãi!",
   bgColor: "#f42c37",
 };
 

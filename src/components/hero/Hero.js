@@ -4,6 +4,7 @@ import headphone2 from "../../assets/headphone2.png";
 import headphone3 from "../../assets/headphone3.png";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { UpdateFollower } from "react-mouse-follower";
+import { useNavigate } from "react-router-dom";
 
 const fadeUp = (delay) => {
   return {
@@ -38,37 +39,38 @@ const data = [
   {
     id: 1,
     image: headphone,
-    title: "Tai nghe Audio-technica ATH-M40X",
-    price: "2.500.000",
+    title: "Tai nghe tại cửa hàng",
+    price: "3.200.000",
     descriptiom:
-      "Tai nghe Audio-technica ATH-M40X: Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
-    brand: "abc",
+      "Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
+    brand: "SONY",
     bgColor: "#2F1713",
   },
   {
     id: 2,
     image: headphone2,
-    title: "Tai nghe Audio-technica ATH-M40X",
-    price: "2.500.000",
+    title: "Tai nghe tại cửa hàng",
+    price: "3.000.000",
     descriptiom:
-      "Tai nghe Audio-technica ATH-M40X: Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
-    brand: "abc",
+      "Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
+    brand: "SONY",
     bgColor: "#5B754A",
   },
   {
     id: 3,
     image: headphone3,
-    title: "Tai nghe Audio-technica ATH-M40X",
-    price: "2.500.000",
+    title: "Tai nghe tại cửa hàng",
+    price: "3.500.000",
     descriptiom:
-      "Tai nghe Audio-technica ATH-M40X: Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
-    brand: "abc",
+      "Giàu bass, Mid phẳng và sạch sẽ, Treble có kết cấu, Âm trường rộng, có độ sâu.",
+    brand: "SONY",
     bgColor: "#2D4E54",
   },
 ];
 
 const Hero = () => {
   const [active, setActive] = useState(data[0] || "");
+  const navigate = useNavigate();
 
   const handleActive = (value) => {
     setActive(value);
@@ -138,8 +140,9 @@ const Hero = () => {
                     exit="exit"
                     style={{ backgroundColor: active.bgColor }}
                     className="px-4 py-2 inline-block font-normal rounded-sm"
+                    onClick={() => navigate(`/san-pham`)}
                   >
-                    Mua ngay
+                    Xem thêm
                   </motion.button>
                 </UpdateFollower>
               </AnimatePresence>

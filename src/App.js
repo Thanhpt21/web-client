@@ -67,6 +67,8 @@ import ListBaseRetail from "pages/admin/retail/ListBaseRetail";
 import CreateRetail from "pages/admin/retail/CreateRetail";
 import ListBasePermission from "pages/admin/permission/ListBasePermission";
 import CreatePermission from "pages/admin/permission/CreatePermission";
+import ListBaseSize from "pages/admin/size/ListBaseSize";
+import CreateSize from "pages/admin/size/CreateSize";
 
 function App() {
   const dispatch = useDispatch();
@@ -167,6 +169,8 @@ function App() {
             element={<ListBasePermission />}
           />
           <Route path={path.CREATE_PERMISSION} element={<CreatePermission />} />
+          <Route path={path.MANAGE_SIZE} element={<ListBaseSize />} />
+          <Route path={path.CREATE_SIZE} element={<CreateSize />} />
         </Route>
         <Route path={path.MEMBER} element={<MemberLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />
