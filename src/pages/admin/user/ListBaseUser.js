@@ -16,6 +16,8 @@ import UpdateUser from "./UpdateUser";
 import { toast } from "react-toastify";
 import withBase from "hocs/withBase";
 import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import { FaUserShield } from "react-icons/fa";
+import UpdatePermission from "./UpdatePermission";
 const { BiEdit, AiFillDelete } = icons;
 
 const ListBaseUser = ({ navigate, location }) => {
@@ -32,6 +34,7 @@ const ListBaseUser = ({ navigate, location }) => {
     status: "",
   });
   const [valueEdit, setValueEdit] = useState(null);
+  const [valuePermission, setValuePermission] = useState(null);
   const [update, setUpdate] = useState(false);
   const [counts, setCounts] = useState(0);
 
@@ -102,6 +105,14 @@ const ListBaseUser = ({ navigate, location }) => {
       align: "center",
       render: (item, record, index) => (
         <Space size="middle">
+          {record.role === "1" && (
+            <span
+              className="cursor-pointer"
+              onClick={() => setValuePermission(record)}
+            >
+              <FaUserShield color="blue" size={20} />
+            </span>
+          )}
           <span
             onClick={() => setValueEdit(record)}
             className=" cursor-pointer"
@@ -126,9 +137,12 @@ const ListBaseUser = ({ navigate, location }) => {
       ...params,
       limit: +process.env.REACT_APP_LIMIT || 2,
     });
-    console.log("check data", response);
+
     if (response.success) {
-      setData(response.users);
+      const filteredData = response.users.filter(
+        (user) => !(user.email === "admin@gmail.com" && user.role === "1")
+      );
+      setData(filteredData);
       setCounts(response.counts);
     }
   };
@@ -184,6 +198,15 @@ const ListBaseUser = ({ navigate, location }) => {
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
+      {valuePermission && (
+        <div className="absolute inset-0 min-h-screen z-20 bg-white">
+          <UpdatePermission
+            valuePermission={valuePermission}
+            render={render}
+            setValuePermission={setValuePermission}
+          />
+        </div>
+      )}
       {valueEdit && (
         <div className="absolute inset-0 min-h-screen z-20 bg-white">
           <UpdateUser

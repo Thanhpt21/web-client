@@ -367,7 +367,7 @@ const Checkout = ({ dispatch, navigate }) => {
         <div className="flex flex-col items-center gap-6">
           <h2 className="font-medium uppercase">Đơn hàng của bạn</h2>
           {current?.cart?.length !== 0 ? (
-            <div>
+            <div className="w-full xl:px-4 md:px-2 sm:px-0">
               <div className=" py-4 overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">

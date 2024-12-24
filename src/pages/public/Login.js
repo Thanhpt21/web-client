@@ -150,7 +150,7 @@ const Login = () => {
         </div>
         <Link
           to={`/${path.HOME}`}
-          className="block mt-4 text-blue-500 hover:underline cursor-pointer"
+          className="block mt-4 text-sm text-blue-500 hover:underline cursor-pointer"
         >
           Trở về trang chủ
         </Link>

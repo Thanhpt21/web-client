@@ -7,7 +7,7 @@ import { formatMoney } from "utils/helpers";
 import { statusOrder } from "utils/contants";
 import { useForm } from "react-hook-form";
 import { createSearchParams, useSearchParams } from "react-router-dom";
-import { Table, Space } from "antd";
+import { Table, Space, Button } from "antd";
 import { apiGetOrdersByAdmin } from "apis";
 import icons from "utils/icons";
 import UpdateOrder from "./UpdateOrder";
@@ -256,14 +256,9 @@ const ListBaseOrder = ({ navigate, location }) => {
       <div className="">
         <div className="flex justify-end items-center p-4">
           <form className="w-[30%] flex gap-4">
-            <div className=" ">
-              <button
-                onClick={() => handleReset}
-                className="border border-blue-400 px-2 py-1 w-fit h-full"
-              >
-                Reset
-              </button>
-            </div>
+            <Button onClick={handleReset} type="default">
+              Lọc lại
+            </Button>
             <div className=" flex items-center w-full">
               <CustomSelect
                 options={statusOrder}

@@ -12,6 +12,14 @@ const noActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
 
 const AdminSidebar = () => {
   const { configs } = useSelector((state) => state?.app);
+  const { current } = useSelector((state) => state.user);
+
+  const permissionUser = current?.permission;
+  const linkPermission = permissionUser
+    ? permissionUser.map((perm) => perm.link)
+    : [];
+
+  console.log("pers", permissionUser);
   const [actived, setactived] = useState([]);
 
   const handleShowSubmenu = (tabid) => {
@@ -19,8 +27,14 @@ const AdminSidebar = () => {
       setactived((prev) => prev.filter((e) => e !== tabid));
     } else setactived((prev) => [...prev, tabid]);
   };
+
+  const hasPermissionForSubmenu = (submenu) => {
+    // Kiểm tra quyền cho tất cả các submenu của PARENT
+    return submenu.some((item) => linkPermission.includes(item.path));
+  };
+
   return (
-    <div className=" bg-white py-4 min-h-screen h-full overflow-y-auto">
+    <div className="bg-white py-4 min-h-screen h-full overflow-y-auto">
       <Link
         to={`/${path.HOME}`}
         className="flex flex-col justify-center items-center p-4 gap-2"
@@ -32,10 +46,11 @@ const AdminSidebar = () => {
         />
         <small>Admin workspace</small>
       </Link>
-      <div className="h-full ">
+      <div className="h-full">
         {adminSidebar.map((el) => (
           <Fragment key={el.id}>
-            {el.type === "SINGLE" && (
+            {/* Kiểm tra quyền cho menu loại SINGLE */}
+            {el.type === "SINGLE" && linkPermission.includes(el.path) && (
               <NavLink
                 to={el.path}
                 className={({ isActive }) =>
@@ -46,48 +61,57 @@ const AdminSidebar = () => {
                 <span>{el.text}</span>
               </NavLink>
             )}
-            {el.type === "PARENT" && (
-              <div
-                onClick={() => handleShowSubmenu(+el.id)}
-                className=" flex flex-col "
-              >
-                <div className="px-4 py-2 flex items-center justify-between gap-2 hover:bg-blue-200">
-                  <div className="flex items-center gap-2">
-                    <span>{el.icon}</span>
-                    <span>{el.text}</span>
+
+            {/* Kiểm tra quyền cho menu loại PARENT và submenu của nó */}
+            {el.type === "PARENT" &&
+              // Kiểm tra quyền cho menu PARENT nếu ít nhất có một submenu được phép
+              hasPermissionForSubmenu(el.submenu) && (
+                <div
+                  onClick={() => handleShowSubmenu(+el.id)}
+                  className="flex flex-col"
+                >
+                  <div className="px-4 py-2 flex items-center justify-between gap-2 hover:bg-blue-200">
+                    <div className="flex items-center gap-2">
+                      <span>{el.icon}</span>
+                      <span>{el.text}</span>
+                    </div>
+                    {actived.some((id) => id === +el.id) ? (
+                      <AiOutlineUp />
+                    ) : (
+                      <AiOutlineDown />
+                    )}
                   </div>
-                  {actived.some((id) => id === +el.id) ? (
-                    <AiOutlineUp />
-                  ) : (
-                    <AiOutlineDown />
+                  {actived.some((id) => id === +el.id) && (
+                    <div className="flex flex-col">
+                      {el.submenu.map(
+                        (i) =>
+                          // Kiểm tra quyền cho từng submenu bên trong
+                          linkPermission.includes(i.path) && (
+                            <NavLink
+                              key={i.text}
+                              to={i.path}
+                              onClick={(e) => e.stopPropagation()}
+                              className={({ isActive }) =>
+                                clsx(
+                                  isActive && activedStyle,
+                                  !isActive && noActivedStyle,
+                                  "pl-6"
+                                )
+                              }
+                            >
+                              {i.text}
+                            </NavLink>
+                          )
+                      )}
+                    </div>
                   )}
                 </div>
-                {actived.some((id) => id === +el.id) && (
-                  <div className="flex flex-col ">
-                    {el.submenu.map((i) => (
-                      <NavLink
-                        key={i.text}
-                        to={i.path}
-                        onClick={(e) => e.stopPropagation()}
-                        className={({ isActive }) =>
-                          clsx(
-                            isActive && activedStyle,
-                            !isActive && noActivedStyle,
-                            "pl-6"
-                          )
-                        }
-                      >
-                        {i.text}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+              )}
           </Fragment>
         ))}
       </div>
     </div>
   );
 };
+
 export default memo(AdminSidebar);

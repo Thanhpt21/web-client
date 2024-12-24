@@ -2,6 +2,8 @@ import React from "react";
 import noimg from "../../assets/no-image.png";
 import DOMPurify from "dompurify";
 import withBase from "hocs/withBase";
+import { CiCalendarDate } from "react-icons/ci";
+import moment from "moment";
 
 const BlogFrame = ({ data, navigate }) => {
   return (
@@ -17,7 +19,10 @@ const BlogFrame = ({ data, navigate }) => {
         />
       </div>
       <div>
-        <p className="text-xs">Đăng bởi: {data?.author}</p>
+        <p className="text-xs flex items-center gap-2">
+          <CiCalendarDate />
+          <span>{moment(data?.createdAt).format("DD/MM/YYYY")}</span>
+        </p>
         <p className="font-medium line-clamp-2 hover:text-main">
           {data?.title}
         </p>

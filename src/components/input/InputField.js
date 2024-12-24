@@ -19,7 +19,7 @@ const InputField = ({
     <div className={clsx("flex flex-col relative mb-2", fw && "w-full")}>
       {!isHideLabel && value?.trim() !== "" && (
         <label
-          className="text-[10px] animate-slide-top-input absolute top-0 left-[12px] block px-1 bg-white"
+          className="text-[10px] animate-slide-top-input absolute top-0 left-[12px] block px-1 bg-white z-10"
           htmlFor={nameKey}
         >
           {nameKey?.slice(0, 1).toUpperCase() + nameKey?.slice(1)}
