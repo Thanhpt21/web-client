@@ -65,6 +65,8 @@ import ListBaseBrand from "pages/admin/brand/ListBaseBrand";
 import CreateBrand from "pages/admin/brand/CreateBrand";
 import ListBaseRetail from "pages/admin/retail/ListBaseRetail";
 import CreateRetail from "pages/admin/retail/CreateRetail";
+import ListBasePermission from "pages/admin/permission/ListBasePermission";
+import CreatePermission from "pages/admin/permission/CreatePermission";
 
 function App() {
   const dispatch = useDispatch();
@@ -160,6 +162,11 @@ function App() {
           <Route path={path.CREATE_BRAND} element={<CreateBrand />} />
           <Route path={path.MANAGE_RETAIL} element={<ListBaseRetail />} />
           <Route path={path.CREATE_RETAIL} element={<CreateRetail />} />
+          <Route
+            path={path.MANAGE_PERMISSION}
+            element={<ListBasePermission />}
+          />
+          <Route path={path.CREATE_PERMISSION} element={<CreatePermission />} />
         </Route>
         <Route path={path.MEMBER} element={<MemberLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />

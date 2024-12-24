@@ -43,6 +43,8 @@ const path = {
   CREATE_BRAND: "create-brand",
   MANAGE_RETAIL: "manage-retail",
   CREATE_RETAIL: "create-retail",
+  MANAGE_PERMISSION: "manage-permission",
+  CREATE_PERMISSION: "create-permission",
   //member
   MEMBER: "member",
   PERSONAL: "personal",

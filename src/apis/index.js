@@ -11,3 +11,4 @@ export * from "./enquiry";
 export * from "./ship";
 export * from "./category";
 export * from "./retail";
+export * from "./permission";

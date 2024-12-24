@@ -285,6 +285,10 @@ export const adminSidebar = [
     icon: <IoSettingsOutline />,
     submenu: [
       {
+        text: "Phân quyền",
+        path: `/${path.ADMIN}/${path.MANAGE_PERMISSION}`,
+      },
+      {
         text: "Cấu hình",
         path: `/${path.ADMIN}/${path.CREATE_CONFIG}`,
       },
