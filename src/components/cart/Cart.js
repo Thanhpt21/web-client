@@ -13,13 +13,12 @@ import path from "utils/path";
 
 const Cart = ({ dispatch, navigate }) => {
   const { currentCart } = useSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(getCurrent());
   }, [dispatch]);
 
-  const removeCart = async (pid, color) => {
-    const response = await apiRemoveCart(pid, color);
+  const removeCart = async (pid, color, size) => {
+    const response = await apiRemoveCart(pid, color, size);
     if (response.success) {
       dispatch(getCurrent());
     } else {
@@ -72,7 +71,8 @@ const Cart = ({ dispatch, navigate }) => {
                   </span>
                   <span className="flex gap-1">
                     <span className="text-xs">{el?.color?.title}</span>
-                    <span className="text-xs">{`- SL: ${el?.quantity}`}</span>
+                    <span className="text-xs">{`- Size: ${el?.size?.title}`}</span>
+                    <span className="text-xs">{`- Số lượng: ${el?.quantity}`}</span>
                   </span>
                   <span className="flex gap-1 items-center">
                     <span className="text-sm">
@@ -87,7 +87,11 @@ const Cart = ({ dispatch, navigate }) => {
                   </span>
                 </div>
               </div>
-              <span onClick={() => removeCart(el.product._id, el?.color?._id)}>
+              <span
+                onClick={() =>
+                  removeCart(el.product._id, el?.color?._id, el?.size?._id)
+                }
+              >
                 <ImBin
                   className="text-gray-500 hover:text-red-500 cursor-pointer"
                   size={16}

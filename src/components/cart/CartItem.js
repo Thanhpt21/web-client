@@ -14,6 +14,7 @@ const CartItem = ({
   quantities = 1,
   dispatch,
   color,
+  size,
   price,
   discount,
   thumb,
@@ -46,8 +47,8 @@ const CartItem = ({
     dispatch(updateCart({ pid, quantity, color }));
   }, [quantity, dispatch]);
 
-  const removeCart = async (pid, color) => {
-    const response = await apiRemoveCart(pid, color);
+  const removeCart = async (pid, color, size) => {
+    const response = await apiRemoveCart(pid, color, size);
     if (response.success) {
       dispatch(getCurrent());
     } else toast.error(response.message);
@@ -70,7 +71,8 @@ const CartItem = ({
               {title}
             </span>
             <span className="text-xs">{color.title}</span>
-            <span onClick={() => removeCart(pid, color._id)}>
+            <span className="text-xs">Size: {size.title}</span>
+            <span onClick={() => removeCart(pid, color._id, size._id)}>
               <ImBin
                 className="text-gray-500 hover:text-red-500 cursor-pointer"
                 size={16}

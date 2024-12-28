@@ -22,6 +22,7 @@ const path = {
   MANAGE_ORDER: "manage-order",
   MANAGE_PRODUCT: "manage-product",
   MANAGE_PRODUCT_VARIANTS: "manage-product-variants",
+  MANAGE_PRODUCT_RATINGS: "manage-product-ratings",
   CREATE_PRODUCT: "create-product",
   MANAGE_CATEGORY_PRODUCT: "manage-category-product",
   CREATE_CATEGORY_PRODUCT: "create-category-product",

@@ -72,6 +72,8 @@ const ProductInfo = ({
     }
   };
 
+  console.log("ProductInfo", totalratings);
+
   return (
     <div id="desc">
       <div className="flex items-center gap-2 relative bottom-[-1px]">

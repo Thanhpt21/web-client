@@ -19,7 +19,6 @@ const AdminSidebar = () => {
     ? permissionUser.map((perm) => perm.link)
     : [];
 
-  console.log("pers", permissionUser);
   const [actived, setactived] = useState([]);
 
   const handleShowSubmenu = (tabid) => {

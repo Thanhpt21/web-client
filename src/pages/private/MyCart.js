@@ -8,6 +8,7 @@ import withBase from "hocs/withBase";
 
 const MyCart = (props) => {
   const { currentCart } = useSelector((state) => state.user);
+  console.log("currentCart", currentCart);
 
   return (
     <div className="w-full px-4">
@@ -37,6 +38,7 @@ const MyCart = (props) => {
             {currentCart?.map((el) => (
               <CartItem
                 color={el.color}
+                size={el.size}
                 quantities={el.quantity}
                 key={el?._id}
                 title={el.title}

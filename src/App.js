@@ -69,6 +69,7 @@ import ListBasePermission from "pages/admin/permission/ListBasePermission";
 import CreatePermission from "pages/admin/permission/CreatePermission";
 import ListBaseSize from "pages/admin/size/ListBaseSize";
 import CreateSize from "pages/admin/size/CreateSize";
+import ListBaseRatings from "pages/admin/product/ListBaseRatings";
 
 function App() {
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ function App() {
         <Route path={path.PUBLIC} element={<Public />}>
           <Route
             path={path.DETAIL_PRODUCT_CATEGORY_PID}
-            element={<ProductDetail />}
+            element={<ProductDetail key={window.location.pathname} />}
           />
           <Route path={path.BLOG} element={<Blog />} />
           <Route
@@ -130,6 +131,10 @@ function App() {
           <Route
             path={path.MANAGE_PRODUCT_VARIANTS}
             element={<ListBaseProductVariants />}
+          />
+          <Route
+            path={path.MANAGE_PRODUCT_RATINGS}
+            element={<ListBaseRatings />}
           />
           <Route path={path.CREATE_PRODUCT} element={<CreateProduct />} />
           <Route path={path.MANAGE_BLOG} element={<ListBaseBlog />} />

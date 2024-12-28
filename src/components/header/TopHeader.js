@@ -28,12 +28,6 @@ const TopHeader = () => {
           >
             Liên hệ
           </Link>
-          <Link
-            to={`/${path.LOGIN}`}
-            className="text-white text-[12px] hover:text-main"
-          >
-            Đăng nhập / Đăng ký
-          </Link>
         </div>
       </div>
     </div>

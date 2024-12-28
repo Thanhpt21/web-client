@@ -39,6 +39,7 @@ const DetailCart = ({ location, dispatch }) => {
               <CartItem
                 category={el.product.category.title}
                 color={el.color}
+                size={el.size}
                 quantities={el.quantity}
                 key={el?._id}
                 title={el.title}

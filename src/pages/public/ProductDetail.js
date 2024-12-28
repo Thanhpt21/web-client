@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createSearchParams, NavLink, useParams } from "react-router-dom";
-import { apiUpdateCart, getProduct } from "../../apis";
+import { apigetAllSizes, apiUpdateCart, getProduct } from "../../apis";
 import {
   Breadcrumbs,
   SelectQuantity,
@@ -50,6 +50,9 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
   const [variant, setVariant] = useState(null);
   const [pid, setpid] = useState(null);
   const [coupon, setCoupon] = useState(null);
+  const [sizeData, setSizeData] = useState([]);
+  const [size, setSize] = useState(null);
+
   const [currentProduct, setCurrentProduct] = useState({
     title: "",
     price: "",
@@ -61,8 +64,14 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
 
   const [isSidebarCoupon, setSidebarCoupon] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const toggleSidebarCoupon = () => setSidebarCoupon(!isSidebarCoupon);
+
+  const handleSizeSelect = (selectedSize) => {
+    setSize(selectedSize); // Update the size when a user selects a size
+  };
 
   useEffect(() => {
+    fetchSize();
     // Khởi tạo ClipboardJS khi component được mount
     const clipboard = new ClipboardJS(".copy-btn", {
       text: (trigger) => {
@@ -83,8 +92,6 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
 
     return () => clipboard.destroy(); // Dọn dẹp khi component unmount
   }, []);
-
-  const toggleSidebarCoupon = () => setSidebarCoupon(!isSidebarCoupon);
 
   useEffect(() => {
     if (data && data.pid) {
@@ -152,6 +159,13 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
     }
   };
 
+  const fetchSize = async () => {
+    const response = await apigetAllSizes();
+    if (response.success) {
+      setSizeData(response.sizes);
+    }
+  };
+
   // const fetchProducts = async () => {
   //   const response = await getProducts({ category });
   //   if (response.success) {
@@ -208,6 +222,7 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
       pid: product?._id,
       color: currentProduct?.color,
       quantity,
+      size: size,
       price: currentProduct?.price,
       discount: currentProduct?.discount,
       thumb: currentProduct?.thumb,
@@ -248,6 +263,11 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
       });
     }
   };
+
+  const adjustedRatings =
+    product?.ratings.length === 0 ? 0 : product?.totalratings;
+  console.log("product", product);
+  console.log("sizeData", sizeData);
 
   return (
     <div className={clsx("w-full")}>
@@ -331,10 +351,10 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
               </h3>
             </div>
             <div className="flex items-center gap-1">
-              {product?.totalratings > 0 ? (
-                renderStarFromNumber(product?.totalratings, 24)?.map(
-                  (el, i) => <span key={i}>{el}</span>
-                )
+              {adjustedRatings > 0 ? (
+                renderStarFromNumber(adjustedRatings, 24)?.map((el, i) => (
+                  <span key={i}>{el}</span>
+                ))
               ) : (
                 <div className="flex gap-1">
                   <AiOutlineStar color="orange" />
@@ -508,6 +528,50 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
               </div>
             </div>
 
+            {/* Size selection */}
+            <div className="mt-2 flex flex-col gap-2">
+              <span className="text-sm text-gray-500">Size:</span>
+              <div className="flex gap-4 items-center w-full">
+                {sizeData?.map((availableSize) => {
+                  // Kiểm tra nếu availableSize._id có trong danh sách product.size
+                  const isSizeAvailable = product?.size.includes(
+                    availableSize._id
+                  );
+
+                  return (
+                    <div
+                      key={availableSize._id}
+                      onClick={() => {
+                        if (isSizeAvailable) {
+                          handleSizeSelect(availableSize?._id); // Chỉ chọn khi có size
+                        }
+                      }}
+                      className={clsx(
+                        "w-10 h-10 flex justify-center items-center rounded-full cursor-pointer relative",
+                        // Nếu size được chọn, background sẽ là đen
+                        size === availableSize._id
+                          ? "bg-black text-white"
+                          : // Nếu không có size (isSizeAvailable = false), thì disable và không cho chọn
+                          isSizeAvailable
+                          ? "bg-gray-200 text-gray-600"
+                          : "bg-red-500 text-white cursor-not-allowed" // Vô hiệu hóa kích thước không có sẵn
+                      )}
+                      style={{
+                        pointerEvents: isSizeAvailable ? "auto" : "none", // Vô hiệu hóa click cho các size không có sẵn
+                      }}
+                    >
+                      {availableSize?.title}
+                      {!isSizeAvailable && (
+                        <span className="absolute text-gray-600 text-xl">
+                          ×
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="flex flex-col gap-2 mt-2">
               <div className="flex items-center gap-4 ">
                 <span className="text-sm text-gray-500">Số lượng:</span>
@@ -617,7 +681,9 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
 
       <div className="grid grid-cols-1 mt-4">
         <ProductInfo
-          totalratings={product?.totalratings}
+          totalratings={
+            product?.ratings?.length === 0 ? 0 : product?.totalratings
+          }
           ratings={product?.ratings}
           nameProduct={product?.title}
           pid={product?._id}

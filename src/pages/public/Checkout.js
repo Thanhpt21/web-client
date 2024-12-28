@@ -27,6 +27,8 @@ const Checkout = ({ dispatch, navigate }) => {
   const [discountCoupon, setDiscountCoupon] = useState(null);
   const [isProvinceHide, setIsProvinceHide] = useState(false);
 
+  console.log("isProvinceHide", isProvinceHide);
+
   const {
     register,
     formState: { errors },
@@ -58,6 +60,7 @@ const Checkout = ({ dispatch, navigate }) => {
     });
     fetchCoupon();
     fetchShip();
+    setIsProvinceHide(false);
   }, []);
 
   const fetchCoupon = async () => {
@@ -82,9 +85,12 @@ const Checkout = ({ dispatch, navigate }) => {
     if (selectedOption === "express") {
       setIsProvinceHide(true);
       setDeliveryCost(25000);
-      clearErrors("ship");
+      clearErrors("ship"); // Disable validation for the ship field
     } else if (selectedOption === "province") {
       setIsProvinceHide(false);
+      setValue("ship", ""); // Reset the ship field value
+      setDeliveryCost(0);
+      clearErrors("ship"); // Ensure the field is not marked as invalid if the user switches back
     }
   };
 
@@ -99,6 +105,7 @@ const Checkout = ({ dispatch, navigate }) => {
     if (selectedShip) {
       setDeliveryCost(selectedShip.price);
       setShipId(selectedShip._id);
+      setValue("ship", selectedShip._id);
     }
   };
 
@@ -129,8 +136,7 @@ const Checkout = ({ dispatch, navigate }) => {
       }
 
       const totalWithoutDiscount = currentCart?.reduce(
-        (sum, el) =>
-          sum + Number(el.discount ? el.discount : el.price) * el.quantity,
+        (sum, el) => sum + (el.discount ? el.discount : el.price) * el.quantity,
         0
       );
 
@@ -149,7 +155,7 @@ const Checkout = ({ dispatch, navigate }) => {
         if (response.success) {
           // Lưu couponId tạm thời
           setDiscountCoupon(coupon.discount);
-          setCouponIdUsed(response.couponId); // Sử dụng couponId từ phản hồi
+          setCouponIdUsed(response.couponId); // Lưu couponId đã sử dụng
           toast.success("Đã áp dụng mã giảm giá thành công");
         } else {
           toast.error(response.message || "Đã xảy ra lỗi");
@@ -164,6 +170,10 @@ const Checkout = ({ dispatch, navigate }) => {
     setCouponName(""); // Xóa giá trị trong input sau khi sử dụng
   };
   const handleOrder = async () => {
+    if (!address) {
+      toast.warning("Vui lòng nhập địa chỉ của bạn!");
+      return; // Dừng lại nếu không có địa chỉ
+    }
     const discount = discountCoupon ? discountCoupon : 0;
     const totalWithoutDiscount = currentCart?.reduce(
       (sum, el) =>
@@ -212,6 +222,15 @@ const Checkout = ({ dispatch, navigate }) => {
       <div className="grid  md:col-span-1">
         <form className="w-full mx-auto flex flex-col gap-4 border p-2">
           <div className="text-medium">Thông tin khách hàng</div>
+          <div>
+            <span className="italic">Bạn muốn cập nhật lại thông tin mới,</span>
+            <Link
+              to={`/${path.MEMBER}/${path.PERSONAL}`}
+              className="text-underline text-red-700 text-italic"
+            >
+              nhấn vào đây
+            </Link>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <InputForm
               label={"Họ"}
@@ -293,24 +312,20 @@ const Checkout = ({ dispatch, navigate }) => {
                 value: el.province,
               }))}
               register={register}
-              style="flex-auto"
+              style=""
               id="ship"
-              validate={{ required: "Vui lòng chọn tỉnh thành" }}
+              validate={
+                isProvinceHide // Only validate if the "province" method is selected
+                  ? {}
+                  : { required: "Vui lòng chọn tỉnh thành" }
+              }
               errors={errors}
               fullwidth
               handleChange={handleShipChange}
             />
           )}
         </form>
-        <div>
-          <span className="italic"> Bạn muốn cập nhật lại thông tin mới, </span>
-          <Link
-            to={`/${path.MEMBER}/${path.PERSONAL}`}
-            className="text-underline"
-          >
-            nhấn vào đây
-          </Link>
-        </div>
+
         <div className="">
           <div className="border flex flex-col gap-4 p-4">
             <div className="flex flex-col gap-2">
@@ -407,7 +422,7 @@ const Checkout = ({ dispatch, navigate }) => {
                               {el.title}
                             </span>
                             <span className="text-sm text-gray-500">
-                              ({el.color.title}) -{" "}
+                              ({el.color.title}) - Size: {el.size.title} - Giá:
                               {formatMoney(
                                 el.discount ? el.discount : el.price
                               )}
@@ -494,16 +509,15 @@ const Checkout = ({ dispatch, navigate }) => {
                     </span>
                   </div>
                 </div>
-                {address && (
-                  <div className="flex gap-2">
-                    <ButtonField
-                      type="submit"
-                      handleOnClick={handleSubmit(handleOrder)}
-                    >
-                      Đặt hàng
-                    </ButtonField>
-                  </div>
-                )}
+                <div className="flex gap-2">
+                  <ButtonField
+                    type="button"
+                    handleOnClick={handleSubmit(handleOrder)}
+                  >
+                    Đặt hàng
+                  </ButtonField>
+                </div>
+
                 <Link
                   className="bg-main text-white px-4 py-2 w-fit"
                   to={`/${path.DETAIL_CART}`}

@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 
 import CreateCustomizeVariant from "./CreateCustomizeVariant";
 import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import ListBaseRatings from "./ListBaseRatings";
 
 const { BiEdit, AiFillDelete, LuPackagePlus } = icons;
 
@@ -40,6 +41,9 @@ const ListBaseProduct = () => {
   const [valueEdit, setValueEdit] = useState(null);
   const [update, setUpdate] = useState(false);
   const [variant, setVariant] = useState(null);
+  const [rating, setRating] = useState(null);
+
+  console.log("data", data);
 
   const render = useCallback(() => {
     setUpdate(!update);
@@ -122,7 +126,15 @@ const ListBaseProduct = () => {
     {
       title: "Đánh giá",
       dataIndex: "totalratings",
-      render: (item) => <span>{`${item} sao`}</span>,
+      render: (item, record) => (
+        <button
+          className="cursor-pointer hover:text-yellow-500 px-2 border border-yellow-500"
+          onClick={() => setRating(record)} // Gọi hàm setRating khi click vào nút
+        >
+          {item} <span className="text-yellow-500">★</span>{" "}
+          {/* Hiển thị sao màu vàng */}
+        </button>
+      ),
     },
     {
       title: "Biến thể",
@@ -133,7 +145,7 @@ const ListBaseProduct = () => {
           onClick={() => {
             navigate(`/${path.ADMIN}/${path.MANAGE_PRODUCT_VARIANTS}`, {
               replace: true,
-              state: record,
+              state: { ...record },
             });
           }}
         >
@@ -209,6 +221,25 @@ const ListBaseProduct = () => {
     fetchProduct(queries);
   }, [params, update, cateId]);
 
+  // const newData = data.map((product) => {
+  //   if (product.ratings.length === 0) {
+  //     // Nếu ratings là mảng rỗng, gán totalratings = 0
+  //     product.totalratings = 0;
+  //   } else {
+  //     // Nếu ratings có giá trị, tính trung bình sao (star)
+  //     let totalStars = 0;
+  //     // Cộng dồn giá trị sao của mỗi đánh giá trong ratings
+  //     for (let i = 0; i < product.ratings.length; i++) {
+  //       totalStars += product.ratings[i].star;
+  //     }
+  //     // Tính trung bình sao
+  //     product.totalratings = totalStars / product.ratings.length;
+  //   }
+  // });
+
+  // In ra kết quả để kiểm tra
+  //console.log("newData", newData);
+
   return (
     <div className="w-full flex flex-col gap-4 relative">
       {valueEdit && (
@@ -226,6 +257,17 @@ const ListBaseProduct = () => {
             variant={variant}
             render={render}
             setVariant={setVariant}
+          />
+        </div>
+      )}
+
+      {rating && (
+        <div className="absolute inset-0 min-h-screen z-20 bg-white">
+          <ListBaseRatings
+            pid={rating._id}
+            rating={rating}
+            render={render}
+            setRating={setRating}
           />
         </div>
       )}

@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
-import { apiCreateProduct, apigetAllCategories } from "apis";
+import { apiCreateProduct, apigetAllCategories, apigetAllSizes } from "apis";
 import { showModal } from "store/app/appSlice";
 import { getColor } from "store/product/productActions";
 import withBase from "hocs/withBase";
@@ -30,6 +30,7 @@ const CreateProduct = ({ dispatch }) => {
   useEffect(() => {
     dispatch(getColor());
     fetchCategory();
+    fetchSize();
   }, []);
 
   const {
@@ -38,6 +39,7 @@ const CreateProduct = ({ dispatch }) => {
     reset,
     handleSubmit,
     watch,
+    setValue,
   } = useForm({
     defaultValues: {
       discount: 0, // Thiết lập giá trị mặc định cho form
@@ -46,6 +48,8 @@ const CreateProduct = ({ dispatch }) => {
 
   const [dataCate, setDataCate] = useState(null);
   const [dataBrand, setDataBrand] = useState([]);
+  const [dataSize, setDataSize] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [watchcat, setWatchcat] = useState(null);
 
@@ -104,7 +108,14 @@ const CreateProduct = ({ dispatch }) => {
     if (invalid === 0) {
       const tagsString = tags.join(",");
       // Khai báo finalPayload trước khi sử dụng nó
-      const finalPayload = { ...data, ...payload, tags: tagsString };
+      const finalPayload = {
+        ...data,
+        ...payload,
+        tags: tagsString,
+        size: selectedSizes,
+      };
+
+      console.log("selectedSizes", selectedSizes);
 
       // Tạo FormData và append dữ liệu vào
       const formData = new FormData();
@@ -137,6 +148,9 @@ const CreateProduct = ({ dispatch }) => {
           case "tags":
             formData.append("tags", value); // tags đã là chuỗi ngăn cách bởi dấu phẩy
             break;
+          case "size":
+            formData.append("size", value);
+            break;
           default:
             formData.append(key, value);
             break;
@@ -159,6 +173,7 @@ const CreateProduct = ({ dispatch }) => {
           images: [],
         });
         setTags([]);
+        setSelectedSizes([]);
       } else {
         toast.error(response.message);
       }
@@ -180,6 +195,13 @@ const CreateProduct = ({ dispatch }) => {
     const response = await apigetAllCategories();
     if (response.success) {
       setDataCate(response.categoryData);
+    }
+  };
+
+  const fetchSize = async () => {
+    const response = await apigetAllSizes();
+    if (response.success) {
+      setDataSize(response.sizes);
     }
   };
 
@@ -231,6 +253,26 @@ const CreateProduct = ({ dispatch }) => {
       setEditedTag("");
     }
   };
+
+  const handleSizeChange = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+
+    setSelectedSizes((prevSelectedSizes) => {
+      if (checked) {
+        // Nếu checkbox được chọn, thêm giá trị vào mảng
+        return [...prevSelectedSizes, value];
+      } else {
+        // Nếu checkbox bị bỏ chọn, loại bỏ giá trị khỏi mảng
+        return prevSelectedSizes.filter((size) => size !== value);
+      }
+    });
+  };
+
+  useEffect(() => {
+    // Cập nhật giá trị `size` trong form mỗi khi `selectedSizes` thay đổi
+    setValue("size", selectedSizes);
+  }, [selectedSizes, setValue]);
 
   return (
     <div className="w-full bg-white min-h-screen">
@@ -409,21 +451,49 @@ const CreateProduct = ({ dispatch }) => {
             />
           </div>
 
-          <div className="flex items-center mb-4 w-fit">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="border border-gray-300 p-2 rounded-md flex-1"
-              placeholder="Nhập tag..."
-            />
-            <button
-              onClick={handleAddTag}
-              className="bg-blue-500 text-white p-2 rounded-sm ml-2"
-            >
-              Thêm
-            </button>
+          <div className="my-4">
+            <label>Kích cỡ</label>
+            <div className="mt-2 flex flex-wrap gap-4">
+              {dataSize?.map((size) => (
+                <div key={size._id} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id={`size-${size._id}`}
+                    value={size._id}
+                    {...register("size")}
+                    checked={selectedSizes.includes(size._id)} // Kiểm tra nếu giá trị có trong selectedSizes
+                    onChange={handleSizeChange} // Xử lý sự thay đổi của checkbox
+                  />
+                  <label
+                    htmlFor={`size-${size._id}`}
+                    className="text-sm text-gray-600"
+                  >
+                    {size.title}
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
+
+          <div>
+            <label>Tag</label>
+            <div className="flex items-center mb-4 w-fit">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="border border-gray-300 p-2 rounded-md flex-1"
+                placeholder="Nhập tag..."
+              />
+              <button
+                onClick={handleAddTag}
+                className="bg-blue-500 text-white p-2 rounded-sm ml-2"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-4">
             {tags.map((tag, index) => (
               <div

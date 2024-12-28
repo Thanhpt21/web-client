@@ -221,15 +221,27 @@ const Product = ({ dispatch, navigate }) => {
   // Find the category
 
   const [brandData, setBrandData] = useState([]);
+
   const fetchBrandByCategory = async () => {
-    const cate = categories?.find(
-      (el) =>
-        el.title.toLowerCase().replace(/\s+/g, "-") ===
-        category.toLowerCase().replace(/\s+/g, "-")
+    // Tìm kiếm danh mục trong categories
+    const result = categories?.find(
+      (el) => convertToSlug(el.title) === category
     );
-    const response = await apigetBrands({ category: cate?._id });
-    if (response.success) {
-      setBrandData(response.brands);
+
+    // Kiểm tra xem tìm thấy danh mục không
+    if (result) {
+      // Nếu tìm thấy danh mục, truyền vào tham số category
+      const response = await apigetBrands({ category: result?._id });
+      if (response.success) {
+        setBrandData(response.brands);
+      }
+    } else {
+      // Nếu không tìm thấy danh mục, gọi API mà không truyền category
+      const response = await apigetBrands({ limit: 10 });
+      console.log(response);
+      if (response.success) {
+        setBrandData(response.brands);
+      }
     }
   };
 

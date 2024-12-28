@@ -29,6 +29,8 @@ const BlogDetail = ({ navigate, location }) => {
   const [isLiked, setIsLiked] = useState(false); // Trạng thái cho việc đã like hay chưa
   const [isDisliked, setIsDisliked] = useState(false); // Trạng thái cho việc đã dislike hay chưa
 
+  console.log("isLiked", isLiked);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
@@ -62,15 +64,22 @@ const BlogDetail = ({ navigate, location }) => {
     try {
       const response = await apiLikeBlog(bid || params.bid);
       if (response.success) {
-        setLikes(response.likes.length);
-        setDislikes(response.dislikes.length);
-        setIsLiked(!isLiked);
-        if (isDisliked) setIsDisliked(false); // Bỏ dislike nếu đã dislike
+        // Cập nhật lại số lượng likes và dislikes từ phản hồi
+        setLikes(response.response.likes.length);
+        setDislikes(response.response.dislikes.length);
+
+        // Cập nhật trạng thái like/dislike
+        setIsLiked(response.response.likes.includes(current._id)); // Xác định trạng thái "Like"
+        setIsDisliked(response.response.dislikes.includes(current._id)); // Xác định trạng thái "Dislike"
+
+        if (response.response.likes.includes(current._id)) {
+          setIsDisliked(false); // Bỏ dislike nếu đã like
+        }
       }
     } catch (error) {
       console.error("Không thể like bài viết:", error);
     } finally {
-      fetchBlogDetail();
+      fetchBlogDetail(); // Lấy lại chi tiết bài viết
     }
   };
 
@@ -100,10 +109,17 @@ const BlogDetail = ({ navigate, location }) => {
     try {
       const response = await apiDisLikeBlog(bid);
       if (response.success) {
-        setLikes(response.likes.length);
-        setDislikes(response.dislikes.length);
-        setIsDisliked(!isDisliked);
-        if (isLiked) setIsLiked(false); // Bỏ like nếu đã like
+        // Cập nhật lại số lượng likes và dislikes từ phản hồi
+        setLikes(response.response.likes.length);
+        setDislikes(response.response.dislikes.length);
+
+        // Cập nhật trạng thái dislike/like
+        setIsDisliked(response.response.dislikes.includes(current._id)); // Xác định trạng thái "Dislike"
+        setIsLiked(response.response.likes.includes(current._id)); // Xác định trạng thái "Like"
+
+        if (response.response.dislikes.includes(current._id)) {
+          setIsLiked(false); // Bỏ like nếu đã dislike
+        }
       }
     } catch (error) {
       console.error("Không thể dislike bài viết:", error);
@@ -203,25 +219,37 @@ const BlogDetail = ({ navigate, location }) => {
             </span>
           </span>
           <div className="flex gap-4">
+            {/* Like Icon */}
             <span
-              className={`flex items-center cursor-pointer ${
-                isLiked ? "text-blue-600" : "text-gray-600"
-              }`}
-              onClick={handleLike}
+              className="flex items-center cursor-pointer"
+              onClick={handleLike} // Gọi hàm handleLike khi click vào
             >
-              <FaThumbsUp className="hover:text-blue-600" />
+              <FaThumbsUp
+                className={`${
+                  data?.likes.includes(current._id)
+                    ? "text-blue-600" // Nếu người dùng đã like hoặc đã like trong trạng thái local
+                    : "text-gray-600" // Nếu không
+                }`}
+              />
               <span className="ml-1">{likes}</span>
             </span>
+
+            {/* Dislike Icon */}
             <span
-              className={`flex items-center cursor-pointer ${
-                isDisliked ? "text-red-600" : "text-gray-600"
-              }`}
-              onClick={handleDislike}
+              className="flex items-center cursor-pointer"
+              onClick={handleDislike} // Gọi hàm handleDislike khi click vào
             >
-              <FaThumbsDown className="hover:text-red-600" />
+              <FaThumbsDown
+                className={`${
+                  data?.dislikes.includes(current._id)
+                    ? "text-red-600" // Nếu người dùng đã dislike hoặc đã dislike trong trạng thái local
+                    : "text-gray-600" // Nếu không
+                }`}
+              />
               <span className="ml-1">{dislikes}</span>
             </span>
           </div>
+
           <div
             className="border border-gray-200 border-l-red-700 border-l-8 p-2"
             dangerouslySetInnerHTML={{ __html: data?.description }}
@@ -294,7 +322,7 @@ const BlogDetail = ({ navigate, location }) => {
                     alt={el.title}
                   />
                   <div className="flex flex-col gap-2 text-sm line-clamp-2">
-                    <span>{truncateText(el.title, 6)}</span>
+                    <span>{truncateText(el.title, 12)}</span>
 
                     <span className="flex gap-1 items-center text-xs text-gray-500">
                       <CiCalendarDate />
@@ -322,7 +350,7 @@ const BlogDetail = ({ navigate, location }) => {
                     alt={el.title}
                   />
                   <div className="flex flex-col gap-2 text-sm line-clamp-2">
-                    <span>{truncateText(el.title, 6)}</span>
+                    <span>{truncateText(el.title, 12)}</span>
 
                     <span className="flex gap-1 items-center text-xs text-gray-500">
                       <FaRegEye />

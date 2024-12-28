@@ -73,7 +73,9 @@ const ListBaseOrder = ({ navigate, location }) => {
       render: (item, record, index) => {
         return record?.products?.map((el) => (
           <span key={el?._id} className="flex flex-col mb-1">
-            <span>{`${el?.title} - ${el?.color?.title}`}</span>
+            <span>{`${el?.title} -  ${el?.color?.title}`}</span>
+            <span>{`Size: ${el?.size?.title}`}</span>
+            <span>{`Số lượng: ${el?.quantity}`}</span>
             <span>
               {el?.discount > 0 ? (
                 <>
@@ -86,7 +88,6 @@ const ListBaseOrder = ({ navigate, location }) => {
                 <span>{formatMoney(el?.price) + "đ"}</span>
               )}
             </span>
-            <span>{`x${el?.quantity}`}</span>
           </span>
         ));
       },

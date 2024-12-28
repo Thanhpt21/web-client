@@ -41,9 +41,9 @@ export const apiUpdateCart = (data) =>
     data,
   });
 
-export const apiRemoveCart = (pid, color) =>
+export const apiRemoveCart = (pid, color, size) =>
   axios({
-    url: `/user/remove-cart/${pid}/${color}`,
+    url: `/user/remove-cart/${pid}/${color}/${size}`,
     method: "delete",
   });
 

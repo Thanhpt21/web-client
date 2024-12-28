@@ -16,6 +16,7 @@ import clsx from "clsx";
 import { convertToSlug } from "../../utils/helpers";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineStar } from "react-icons/ai";
+import { BsEye } from "react-icons/bs";
 
 const { MdAddShoppingCart, BsFillSuitHeartFill, BsFillCartCheckFill } = icons;
 
@@ -108,6 +109,8 @@ const ProductFrame = ({
   const discountPercentage =
     price && discount ? Math.round(((price - discount) / price) * 100) : null;
 
+  const adjustedRatings = data?.ratings.length === 0 ? 0 : data?.totalratings;
+
   return (
     <div
       className={clsx(
@@ -141,9 +144,12 @@ const ProductFrame = ({
           ) : (
             <span
               title="Thêm vào giỏ hàng"
-              onClick={(e) => handleClickOption(e, "CART")}
+              // onClick={(e) => handleClickOption(e, "CART")}
+              onClick={(e) => {
+                navigate(`/${path.CART}`);
+              }}
             >
-              <SelectOption icon={<MdAddShoppingCart />} />
+              <SelectOption icon={<BsEye />} />
             </span>
           )}
           <span
@@ -189,8 +195,8 @@ const ProductFrame = ({
         <span className="flex items-center gap-2">
           {/* Hiển thị sao */}
 
-          {data?.totalratings > 0 ? (
-            renderStarFromNumber(data?.totalratings)?.map((el, index) => (
+          {adjustedRatings > 0 ? (
+            renderStarFromNumber(adjustedRatings)?.map((el, index) => (
               <span key={index}>{el}</span>
             ))
           ) : (

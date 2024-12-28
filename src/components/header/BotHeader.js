@@ -232,7 +232,7 @@ const BotHeader = ({
                             {isShowProfileOption && (
                               <div
                                 onClick={(e) => e.stopPropagation()}
-                                className="absolute z-20 w-[150px] rounded-sm bg-white text-gray-900 shadow-md p-2 top-full mt-2"
+                                className="absolute z-20 w-[120px] rounded-sm bg-white text-gray-900 shadow-md p-2 top-full mt-2"
                               >
                                 <div className="space-y-2">
                                   {current && (
@@ -265,7 +265,7 @@ const BotHeader = ({
                                         className="duration-200 p-1 hover:bg-main/20 inline-block w-full rounded-md hover:text-main"
                                         to={`/${path.LOGIN}`}
                                       >
-                                        Đăng nhập hoặc Đăng ký
+                                        Đăng nhập
                                       </Link>
                                     </span>
                                   )}
@@ -408,9 +408,9 @@ const BotHeader = ({
                   >
                     <FaUserCircle size={24} />
                     <span className="text-sm">
-                      {current?.firstname ? (
+                      {current ? (
                         <div className="flex gap-1 items-center">
-                          <span>{current?.firstname}</span>
+                          <span>{`${current?.firstname} ${current?.lastname}`}</span>
                           <span>
                             {isShowProfileOption ? (
                               <AiOutlineUp />
@@ -426,7 +426,7 @@ const BotHeader = ({
                     {isShowProfileOption && (
                       <div
                         onClick={(e) => e.stopPropagation()}
-                        className="absolute z-20 w-[150px] rounded-sm bg-white text-gray-900 shadow-md p-2 top-full mt-2"
+                        className="absolute z-20 w-[120px] rounded-sm bg-white text-gray-900 shadow-md p-2 top-full mt-2"
                       >
                         <div className="space-y-2">
                           {current && (
@@ -459,7 +459,7 @@ const BotHeader = ({
                                 className="duration-200 p-1 hover:bg-main/20 inline-block w-full rounded-md hover:text-main"
                                 to={`/${path.LOGIN}`}
                               >
-                                Đăng nhập hoặc Đăng ký
+                                Đăng nhập
                               </Link>
                             </span>
                           )}

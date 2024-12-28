@@ -12,7 +12,12 @@ import { validate, getBase64 } from "utils/helpers";
 import { toast } from "react-toastify";
 
 import { showModal } from "store/app/appSlice";
-import { apigetAllCategories, apigetCategories, apiUpdateProduct } from "apis";
+import {
+  apigetAllCategories,
+  apigetAllSizes,
+  apigetCategories,
+  apiUpdateProduct,
+} from "apis";
 import { getColor } from "store/product/productActions";
 import { statusProduct } from "utils/contants";
 import { BiEdit } from "react-icons/bi";
@@ -21,11 +26,19 @@ import { apigetAllBrands } from "apis/brand";
 import HeaderWithCancelButton from "components/admin/HeaderWithCancelButton";
 
 const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
-  const { categories } = useSelector((state) => state?.app);
   const { colors } = useSelector((state) => state?.product);
   const [dataCate, setDataCate] = useState(null);
   const [dataBrand, setDataBrand] = useState([]);
+  const [dataSize, setDataSize] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [watchcat, setWatchcat] = useState(null);
+
+  const fetchSize = async () => {
+    const response = await apigetAllSizes();
+    if (response.success) {
+      setDataSize(response.sizes);
+    }
+  };
 
   const fetchCategory = async () => {
     const response = await apigetAllCategories();
@@ -50,12 +63,14 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
   } = useForm({
     defaultValues: {
       discount: 0, // Thiết lập giá trị mặc định cho form
+      size: valueEdit?.size || [],
     },
   });
 
   useEffect(() => {
     dispatch(getColor());
     fetchCategory();
+    fetchSize();
   }, []);
 
   useEffect(() => {
@@ -110,6 +125,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
         images: valueEdit.images || [],
       });
       setTags(valueEdit.tags || []);
+      setSelectedSizes(valueEdit.size || []);
     }
   }, [valueEdit, reset, setValue]);
 
@@ -205,6 +221,11 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
           case "tags":
             formData.append("tags", value.join(",")); // Join tags with comma
             break;
+          case "size":
+            if (selectedSizes.length > 0) {
+              selectedSizes.forEach((size) => formData.append("size", size));
+            }
+            break;
           default:
             formData.append(key, value);
             break;
@@ -262,6 +283,26 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
       setEditedTag("");
     }
   };
+
+  const handleSizeChange = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+
+    setSelectedSizes((prevSelectedSizes) => {
+      if (checked) {
+        // Nếu checkbox được chọn, thêm giá trị vào mảng
+        return [...prevSelectedSizes, value];
+      } else {
+        // Nếu checkbox bị bỏ chọn, loại bỏ giá trị khỏi mảng
+        return prevSelectedSizes.filter((size) => size !== value);
+      }
+    });
+  };
+
+  useEffect(() => {
+    // Cập nhật giá trị `size` trong form mỗi khi `selectedSizes` thay đổi
+    setValue("size", selectedSizes);
+  }, [selectedSizes, setValue]);
 
   return (
     <div className="w-full ">
@@ -445,21 +486,48 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
               fullwidth
             />
           </div>
-          <div className="flex items-center mb-4 w-fit">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="border border-gray-300 p-2 rounded-md flex-1"
-              placeholder="Nhập tag..."
-            />
-            <button
-              onClick={handleAddTag}
-              className="bg-blue-500 text-white p-2 rounded-sm ml-2"
-            >
-              Thêm
-            </button>
+          <div className="my-4">
+            <label>Kích cỡ</label>
+            <div className="mt-2 flex flex-wrap gap-4">
+              {dataSize?.map((size) => (
+                <div key={size._id} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id={`size-${size._id}`}
+                    value={size._id}
+                    {...register("size")}
+                    checked={selectedSizes.includes(size._id)} // Kiểm tra nếu giá trị có trong selectedSizes
+                    onChange={handleSizeChange} // Xử lý sự thay đổi của checkbox
+                  />
+                  <label
+                    htmlFor={`size-${size._id}`}
+                    className="text-sm text-gray-600"
+                  >
+                    {size.title}
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
+          <div>
+            <label>Tag</label>
+            <div className="flex items-center mb-4 w-fit">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="border border-gray-300 p-2 rounded-md flex-1"
+                placeholder="Nhập tag..."
+              />
+              <button
+                onClick={handleAddTag}
+                className="bg-blue-500 text-white p-2 rounded-sm ml-2"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-4">
             {tags.map((tag, index) => (
               <div
@@ -495,6 +563,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
               </div>
             ))}
           </div>
+
           <MarkDownEditer
             name="description"
             changeValue={changeValue}

@@ -53,10 +53,12 @@ const History = ({ navigate, location }) => {
       title: "Sản phẩm",
       dataIndex: "products",
       render: (item, record, index) => {
+        console.log("record", record);
         return record?.products?.map((el) => (
           <span key={el?._id} className="flex flex-col mb-1">
-            <span>{`${el?.title} -  ${el?.color}`}</span>
-            <span>{`x${el?.quantity}`}</span>
+            <span>{`${el?.title} -  ${el?.color?.title}`}</span>
+            <span>{`Size: ${el?.size?.title}`}</span>
+            <span>{`Số lượng: ${el?.quantity}`}</span>
             <span>
               {el?.discount > 0 ? (
                 <>

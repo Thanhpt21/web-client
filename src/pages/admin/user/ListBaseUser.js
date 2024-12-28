@@ -142,6 +142,7 @@ const ListBaseUser = ({ navigate, location }) => {
       const filteredData = response.users.filter(
         (user) => !(user.email === "admin@gmail.com" && user.role === "1")
       );
+      // setData(response.users);
       setData(filteredData);
       setCounts(response.counts);
     }
