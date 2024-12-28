@@ -20,7 +20,7 @@ ChartJS.register(
   LinearScale
 );
 
-const ChartOrder = () => {
+const ChartOrder = ({ orderCounts }) => {
   // Dữ liệu biểu đồ
   const data = {
     labels: [
@@ -40,7 +40,7 @@ const ChartOrder = () => {
     datasets: [
       {
         label: "Đơn hàng", // Tên của dataset
-        data: [10, 8, 5, 12, 16], // Dữ liệu của biểu đồ
+        data: orderCounts, // Dữ liệu của biểu đồ
         backgroundColor: "rgba(75, 192, 192, 0.2)", // Màu nền của các cột
         borderColor: "rgba(75, 192, 192, 1)", // Màu viền của các cột
         borderWidth: 1, // Độ rộng viền

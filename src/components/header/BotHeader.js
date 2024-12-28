@@ -406,7 +406,18 @@ const BotHeader = ({
                     }}
                     className="flex items-center justify-start gap-1 cursor-pointer group relative"
                   >
-                    <FaUserCircle size={24} />
+                    <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center">
+                      {current && current?.avatar ? (
+                        <img
+                          src={current?.avatar}
+                          alt="User Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <FaUserCircle size={24} />
+                      )}
+                    </div>
+
                     <span className="text-sm">
                       {current ? (
                         <div className="flex gap-1 items-center">

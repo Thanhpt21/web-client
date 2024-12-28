@@ -39,6 +39,7 @@ const Login = () => {
 
   const handleSubmit = useCallback(async () => {
     const { firstname, lastname, phone, ...data } = payload;
+    console.log("data", data);
 
     if (isRegister) {
       dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
@@ -90,13 +91,13 @@ const Login = () => {
             <InputField
               value={payload.firstname}
               setValue={setPayload}
-              nameKey="firstname"
+              nameKey="Họ"
               fw
             />
             <InputField
               value={payload.lastname}
               setValue={setPayload}
-              nameKey="lastname"
+              nameKey="Tên"
               fw
             />
           </div>

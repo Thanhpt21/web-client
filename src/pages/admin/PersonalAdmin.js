@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ButtonField, InputForm } from "components";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { apiUpdateCurrent } from "apis";
 import { getCurrent } from "store/user/userActions";
 import { toast } from "react-toastify";
 import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import { getBase64 } from "utils/helpers";
 
 const PersonalAdmin = () => {
   const {
@@ -18,6 +19,9 @@ const PersonalAdmin = () => {
     watch,
   } = useForm();
   const { current } = useSelector((state) => state.user);
+  const [preview, setPreview] = useState({
+    avatar: null,
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     reset({
@@ -28,7 +32,20 @@ const PersonalAdmin = () => {
       avatar: current?.avatar,
       address: current?.address,
     });
+    setPreview({
+      avatar: current?.avatar || "",
+    });
   }, []);
+
+  const handlePreviewAvatar = async (file) => {
+    const base64Avatar = await getBase64(file);
+    setPreview((prev) => ({ ...prev, avatar: base64Avatar }));
+  };
+
+  useEffect(() => {
+    if (watch("avatar") instanceof FileList && watch("avatar").length > 0)
+      handlePreviewAvatar(watch("avatar")[0]);
+  }, [watch("avatar")]);
 
   const handleUpdateInfo = async (data) => {
     const formData = new FormData();
@@ -51,17 +68,31 @@ const PersonalAdmin = () => {
         onSubmit={handleSubmit(handleUpdateInfo)}
         className="w-3/5 mx-auto py-8 flex flex-col gap-4"
       >
-        <div className="flex items-center gap-2">
-          <span>Ảnh đại diện: </span>
-          <label htmlFor="file">
-            <img
-              src={current?.avatar || avatarDF}
-              alt="logo"
-              className="w-16 h-16 object-cover"
-            />
+        <div className="flex flex-col gap-2 ">
+          <label className="" htmlFor="avatar">
+            Ảnh đại diện:
           </label>
-          <input {...register("avatar")} type="file" id="file" hidden />
+          <input
+            className="w-fit"
+            type="file"
+            id="avatar"
+            {...register("avatar")}
+          />
+          {errors["avatar"] && (
+            <small className="text-xs text-red-500">
+              {errors["avatar"]?.message}
+            </small>
+          )}
         </div>
+        {preview.avatar && (
+          <div className="my-4">
+            <img
+              className="w-[100px] object-contain"
+              src={preview.avatar}
+              alt="avatar"
+            />
+          </div>
+        )}
         <InputForm
           label={"Họ"}
           register={register}

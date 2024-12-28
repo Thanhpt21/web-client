@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ButtonField, InputForm } from "components";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import avatarDF from "../../assets/avatar.jpg";
 import { apiUpdateCurrent } from "apis";
 import { getCurrent } from "store/user/userActions";
 import { toast } from "react-toastify";
+import { getBase64 } from "utils/helpers";
 
 const Personal = () => {
   const {
@@ -14,9 +15,25 @@ const Personal = () => {
     formState: { errors, isDirty },
     reset,
     handleSubmit,
+    watch,
   } = useForm();
   const { current } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const [preview, setPreview] = useState({
+    avatar: null,
+  });
+
+  const handlePreviewAvatar = async (file) => {
+    const base64Avatar = await getBase64(file);
+    setPreview((prev) => ({ ...prev, avatar: base64Avatar }));
+  };
+
+  useEffect(() => {
+    if (watch("avatar") instanceof FileList && watch("avatar").length > 0)
+      handlePreviewAvatar(watch("avatar")[0]);
+  }, [watch("avatar")]);
+
   useEffect(() => {
     reset({
       firstname: current?.firstname,
@@ -25,6 +42,9 @@ const Personal = () => {
       mobile: current?.mobile,
       avatar: current?.avatar,
       address: current?.address,
+    });
+    setPreview({
+      avatar: current?.avatar || "",
     });
   }, []);
 
@@ -52,17 +72,32 @@ const Personal = () => {
         onSubmit={handleSubmit(handleUpdateInfo)}
         className="md:w-3/5 w-4/5 mx-auto py-8 flex flex-col gap-4"
       >
-        <div className="flex items-center gap-2">
-          <span>Ảnh đại diện: </span>
-          <label htmlFor="file">
-            <img
-              src={current?.avatar || avatarDF}
-              alt="logo"
-              className="w-16 h-16 object-cover"
-            />
+        <div className="flex flex-col gap-2 ">
+          <label className="" htmlFor="avatar">
+            Ảnh đại diện:
           </label>
-          <input {...register("avatar")} type="file" id="file" hidden />
+          <input
+            className="w-fit"
+            type="file"
+            id="avatar"
+            {...register("avatar")}
+          />
+          {errors["avatar"] && (
+            <small className="text-xs text-red-500">
+              {errors["avatar"]?.message}
+            </small>
+          )}
         </div>
+        {preview.avatar && (
+          <div className="my-4">
+            <img
+              className="w-[100px] object-contain"
+              src={preview.avatar}
+              alt="avatar"
+            />
+          </div>
+        )}
+
         <InputForm
           label={"Họ"}
           register={register}
@@ -122,17 +157,6 @@ const Personal = () => {
           }}
           placeholder={"Vui lòng nhập Địa chỉ"}
         />
-
-        <div className="flex items-center gap-2">
-          <span>Trạng thái tài khoản: </span>
-          <span className="text-green-400">
-            {current?.isBlocked === 2 ? "Đã bị khóa" : "Hoạt động"}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span>Vai trò: </span>
-          <span>{+current?.role === 1 ? "Admin" : "Người dùng"}</span>
-        </div>
         <div className="flex items-center gap-2">
           <span>Ngày tạo tài khoản: </span>
           <span>
