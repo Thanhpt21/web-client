@@ -98,8 +98,8 @@ const ListBaseOrder = ({ navigate, location }) => {
       render: (item, record, index) => (
         <span className="flex flex-col gap-1" key={item.orderBy._id}>
           <span className="flex gap-2">
-            <span>{item.orderBy.lastname}</span>
-            <span>{item.orderBy.firstname} </span>
+            <span>{item.orderBy.firstname}</span>
+            <span>{item.orderBy.lastname} </span>
           </span>
           <span className="flex gap-2">
             <span>{item.orderBy.email}</span>

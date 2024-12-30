@@ -6,7 +6,7 @@ const FaviconChanger = () => {
   const { configs } = useSelector((state) => state?.app);
   return (
     <Helmet>
-      <link rel="icon" href={configs?.favicon} />
+      <link rel="icon" href={configs?.[0].favicon} />
     </Helmet>
   );
 };

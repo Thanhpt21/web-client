@@ -81,7 +81,11 @@ const BotHeader = ({
   };
 
   useEffect(() => {
-    fetchBrandByCategory();
+    if (selectedCategory) {
+      setTimeout(async () => {
+        await fetchBrandByCategory(); // Gọi API để lấy dữ liệu brand
+      }, 200); // Delay 0.5s
+    }
   }, [selectedCategory]);
 
   // Hàm xử lý khi nhấp vào thương hiệu

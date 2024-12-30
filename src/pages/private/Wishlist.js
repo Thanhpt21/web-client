@@ -5,6 +5,23 @@ import { ProductFrame } from "components";
 const Wishlist = () => {
   const { current } = useSelector((state) => state.user);
 
+  if (!current || current?.wishlist?.length === 0) {
+    return (
+      <div className="w-full px-4 ">
+        <header className="font-medium py-4 border-b md:text-start text-center">
+          Danh sách sản phẩm yêu thích
+        </header>
+
+        {/* Dòng chữ thông báo giỏ hàng trống */}
+        <div className="flex justify-center items-center py-4">
+          <span className="text-xl font-semibold text-gray-500">
+            Bạn chưa có sản phẩm nào trong danh sách yêu thích
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full px-4 overflow-hidden">
       <header className="font-medium py-4 border-b md:text-start text-center">

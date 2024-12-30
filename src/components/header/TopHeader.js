@@ -1,13 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import path from "utils/path";
 
 const TopHeader = () => {
+  const { configs } = useSelector((state) => state?.app);
   return (
     <div className="w-full h-[30px] bg-black hidden md:block">
       <div className="h-full container  flex justify-between items-center">
         <div className="text-white text-[14px]">
-          AZstore Kính chào quý khách
+          {configs?.[0]?.name} Kính chào quý khách
         </div>
         <div className="flex gap-2">
           <Link

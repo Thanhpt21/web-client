@@ -6,6 +6,7 @@ import {
   Blogs,
   BannerHome,
   NewProduct,
+  Partners,
 } from "../../components";
 
 import withBase from "hocs/withBase";
@@ -19,6 +20,7 @@ const Home = ({}) => {
       <BannerHome />
       <NewProduct />
       <Blogs />
+      <Partners />
     </>
   );
 };

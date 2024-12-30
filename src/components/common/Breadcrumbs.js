@@ -14,6 +14,7 @@ const Breadcrumbs = ({ category, title }) => {
   const getValueFromPath = (category) => {
     if (category) {
       const result = menus?.find((item) => item.path === `/${category}`);
+      console.log("result", result);
       return result ? result.value : category;
     }
     return null;
@@ -52,11 +53,7 @@ const Breadcrumbs = ({ category, title }) => {
               >
                 <span>{breadcrumb}</span>
                 {!isLast && !isActive && (
-                  <IoIosArrowForward
-                    className={`inline-block ${
-                      isCategoryPid ? "md:hidden" : "hidden md:inline-block"
-                    }`}
-                  />
+                  <IoIosArrowForward className="inline-block" />
                 )}
               </Link>
             </React.Fragment>

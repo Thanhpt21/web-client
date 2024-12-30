@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import path from "utils/path";
 import { useSelector } from "react-redux";
+import { Image } from "antd";
 
 const activedStyle = "px-4 py-2 flex items-center gap-2 bg-blue-500";
 const noActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
@@ -39,7 +40,7 @@ const AdminSidebar = () => {
         className="flex flex-col justify-center items-center p-4 gap-2"
       >
         <img
-          src={configs?.logo || logo}
+          src={configs?.[0]?.logo || logo}
           alt="logo"
           className="w-[100px] object-contain"
         />

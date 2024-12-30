@@ -11,7 +11,7 @@ const SocialButtons = () => {
         {/* Nút Facebook */}
         <button
           onClick={() =>
-            window.open(configs?.facebook, "_blank", "noopener,noreferrer")
+            window.open(configs?.[0].facebook, "_blank", "noopener,noreferrer")
           }
           className="p-2 bg-transparent text-white "
         >
@@ -22,7 +22,7 @@ const SocialButtons = () => {
       <div className="bg-black p-[2px] rounded-0 flex items-center justify-center transition-colors duration-300 hover:bg-red-600">
         {/* Nút Phone */}
         <a
-          href={`tel:${configs?.mobile}`}
+          href={`tel:${configs?.[0].mobile}`}
           className="p-2 bg-transparent text-white "
         >
           <FaPhone size={16} />
@@ -32,7 +32,7 @@ const SocialButtons = () => {
       <div className="bg-black p-[2px] rounded-0 flex items-center justify-center transition-colors duration-300 hover:bg-red-600">
         {/* Nút Email */}
         <a
-          href={`mailto:${configs?.email}`}
+          href={`mailto:${configs?.[0].email}`}
           className="p-2 bg-transparent text-white "
         >
           <HiOutlineMail size={16} />

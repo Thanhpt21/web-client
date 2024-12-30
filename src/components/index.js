@@ -83,6 +83,7 @@ export { default as SummaryPanel } from "./blog/SummaryPanel";
 
 //home
 export { default as Hero } from "./hero/Hero";
+export { default as Hero1 } from "./hero/Hero1";
 export { default as Category } from "./category/Category";
 
 export { default as FaviconChanger } from "./configs/FaviconChanger";

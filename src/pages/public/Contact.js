@@ -60,19 +60,15 @@ const Contact = ({ dispatch }) => {
       <BreadcrumbsDefault path1={path.HOME} path2={path.CONTACT} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="w-full">
-          <iframe
+          <img
             src={
               selectedRetail
-                ? selectedRetail?.link
-                : "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501725.41843254614!2d106.36555703781768!3d10.755292870470326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f39281c2f69%3A0x65f5e93190fb3464!2sSunrise%20Central%20Hotel!5e0!3m2!1svi!2s!4v1723638275361!5m2!1svi!2s"
+                ? selectedRetail?.images
+                : "https://via.placeholder.com/800x450.png?text=Map+Image"
             }
-            height="450"
-            width="100%"
-            className="border-0 w-100"
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+            alt="Map Image"
+            className="border-0 w-full h-auto" // Bạn có thể chỉnh lại kích thước và kiểu hiển thị của ảnh
+          />
         </div>
         <div>
           <div>
@@ -89,6 +85,7 @@ const Contact = ({ dispatch }) => {
               >
                 <div className="font-medium hover:text-main">{retail.name}</div>
                 <div className="text-gray-600">{retail.mobile}</div>
+                <div className="text-gray-600">{retail.address}</div>
               </li>
             ))}
           </ul>

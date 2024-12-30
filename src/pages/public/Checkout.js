@@ -40,7 +40,6 @@ const Checkout = ({ dispatch, navigate }) => {
   } = useForm();
 
   const address = watch("address");
-  const ship = watch("ship");
 
   useEffect(() => {
     setValue("mobile", current?.mobile);

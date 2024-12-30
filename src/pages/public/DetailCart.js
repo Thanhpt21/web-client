@@ -2,12 +2,54 @@ import { Breadcrumbs, CartItem } from "components";
 import withBase from "hocs/withBase";
 import React from "react";
 import { useSelector } from "react-redux";
-import { formatMoney } from "utils/helpers";
 import { Link } from "react-router-dom";
+import { formatMoney } from "utils/helpers";
 import path from "utils/path";
+import emptyCart from "assets/payment.jpg";
 
 const DetailCart = ({ location, dispatch }) => {
   const { currentCart } = useSelector((state) => state.user);
+
+  // Kiểm tra nếu currentCart là mảng trống
+  if (!currentCart || currentCart.length === 0) {
+    return (
+      <div className="grid grid-cols-1">
+        <div className="py-4 flex justify-center items-center">
+          <div className="w-full">
+            <Breadcrumbs title="Giỏ hàng" />
+          </div>
+        </div>
+
+        {/* Tấm ảnh hiển thị khi giỏ hàng trống */}
+        <div className="flex justify-center items-center py-8">
+          <img
+            src={emptyCart}
+            alt="Giỏ hàng trống"
+            className="w-48 h-48 object-cover"
+          />
+        </div>
+
+        {/* Dòng chữ thông báo giỏ hàng trống */}
+        <div className="flex justify-center items-center py-4">
+          <span className="text-xl font-semibold text-gray-500">
+            Giỏ hàng của bạn đang trống
+          </span>
+        </div>
+
+        {/* Nút tiếp tục mua hàng */}
+        <div className="w-full flex flex-col my-4 justify-center items-center gap-2">
+          <Link
+            className="bg-main text-white px-4 py-2"
+            to={`/${path.PRODUCTS}`}
+          >
+            Tiếp tục mua hàng
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Nếu giỏ hàng có sản phẩm, render bình thường
   return (
     <div className="grid grid-cols-1">
       <div className="py-4 flex justify-center items-center">

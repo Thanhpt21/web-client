@@ -18,7 +18,7 @@ import { statusProduct } from "utils/contants";
 import { FaTrash } from "react-icons/fa";
 import { BiEdit } from "react-icons/bi";
 import { apigetAllBrands } from "apis/brand";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateProduct = ({ dispatch }) => {
   const { colors } = useSelector((state) => state?.product);
@@ -276,7 +276,7 @@ const CreateProduct = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateProduct)}>
           <div className="flex flex-col gap-2 ">

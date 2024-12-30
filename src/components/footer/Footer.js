@@ -63,7 +63,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-[#777777]">Hệ thống</p>
-                  <p className="text-[40px]">Trading</p>
+                  <p className="text-[40px]">{configs?.[0]?.name}</p>
                   <div className=" flex gap-1 items-center">
                     <span
                       onClick={openModal}

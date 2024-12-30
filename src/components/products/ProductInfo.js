@@ -72,8 +72,6 @@ const ProductInfo = ({
     }
   };
 
-  console.log("ProductInfo", totalratings);
-
   return (
     <div id="desc">
       <div className="flex items-center gap-2 relative bottom-[-1px]">
@@ -100,9 +98,20 @@ const ProductInfo = ({
           </span>
         ))}
       </div>
+
       <div className="w-full border p-4">
-        {productInfo.some((el) => el.id === activedTab) &&
-          productInfo[activedTab - 1]?.content}
+        {/* Kiểm tra nếu activedTab là hợp lệ và có phần tử tương ứng trong mảng */}
+        {productInfo.some((el) => el.id === activedTab) && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                productInfo.find((el) => el.id === activedTab)?.content
+              ),
+            }}
+          ></div>
+        )}
+
+        {/* Hiển thị nội dung mô tả nếu activedTab === 1 */}
         {activedTab === 1 && (
           <div
             dangerouslySetInnerHTML={{
@@ -117,7 +126,7 @@ const ProductInfo = ({
           Đánh giá từ khách hàng
         </div>
         <div className="flex">
-          <div className="flex-4 border flex flex-col items-center justify-center">
+          <div className="flex-3 border flex flex-col items-center justify-center">
             <span className="font-semibold text-xl">{`${totalratings}/5`}</span>
             <span className="flex items-center gap-1">
               {renderStarFromNumber(totalratings)?.map((el, i) => (
@@ -126,7 +135,7 @@ const ProductInfo = ({
             </span>
             <span className="text-sm">{`${ratings?.length} lượt`}</span>
           </div>
-          <div className="flex-6 border flex flex-col-reverse gap-2 p-4">
+          <div className="flex-7 border flex flex-col-reverse gap-2 p-4">
             {Array.from(Array(5).keys()).map((el) => (
               <VoteBar
                 key={el}
@@ -162,11 +171,12 @@ const ProductInfo = ({
         <div className="flex flex-col gap-4">
           {ratings?.map((el) => (
             <ViewComment
+              postedby={el.postedby}
               key={el._id}
               star={el.star}
               updatedAt={el.updatedAt}
               comment={el.comment}
-              name={`${el.postedby?.lastname} ${el.postedby?.firstname}`}
+              name={`${el.postedby?.firstname} ${el.postedby?.lastname}`}
             />
           ))}
         </div>

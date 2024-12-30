@@ -10,13 +10,18 @@ const Category = () => {
       <div className="bg-white shadow-sm p-6 rounded-sm">
         <h2 className="text-[24px] font-bold text-black">DANH MỤC SẢN PHẨM</h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 ">
           {categories?.map((el) => (
             <div
               key={el?._id}
-              className="flex flex-col justify-center items-center border border-1 border-gray-100 py-4"
+              className="flex flex-col justify-center items-center border-gray-100 py-4"
             >
-              <img className="w-15" src={el?.images} alt={el.title} />
+              {/* Thêm lớp rounded-full để tạo hình tròn cho hình ảnh */}
+              <img
+                className="w-16 h-16 rounded-full object-cover bg-gray-100 hover:bg-gray-300 transition duration-200 ease-in-out" // Điều chỉnh kích thước hình ảnh và tạo hình tròn
+                src={el?.images}
+                alt={el.title}
+              />
               <NavLink
                 key={el._id}
                 to={`/${convertToSlug(el.title)}`}

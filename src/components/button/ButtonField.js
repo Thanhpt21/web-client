@@ -13,7 +13,7 @@ const ButtonField = ({
       className={
         style
           ? style
-          : `px-4 py-2 my-2 text-white bg-main text-semibold ${
+          : `px-4 py-2 my-2 text-white bg-main text-semibold rounded-md border border-transparent ${
               fw ? "w-full" : "w-fit"
             }`
       }

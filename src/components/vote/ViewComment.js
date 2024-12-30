@@ -9,12 +9,13 @@ const ViewComment = ({
   comment,
   star,
   updatedAt,
+  postedby,
 }) => {
   return (
     <div className="flex gap-4">
       <div className="flex-none">
         <img
-          src={avatar}
+          src={postedby.avatar ? postedby.avatar : avatar}
           alt="avatar"
           className="w-[25px] h-[25px] object-cover rounded-full"
         />

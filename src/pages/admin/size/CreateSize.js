@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import withBase from "hocs/withBase";
 import { apiCreateSize } from "apis/size"; // Import API cho Size
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateSize = ({ dispatch }) => {
   const {
@@ -30,7 +30,7 @@ const CreateSize = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới kích thước"} />
+      <HeaderWithBackButton title={"Thêm mới kích thước"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateSize)}>
           <div className="w-full my-6 flex gap-4">

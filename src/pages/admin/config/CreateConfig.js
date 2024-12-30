@@ -9,7 +9,7 @@ import { showModal } from "store/app/appSlice";
 
 import { apiUpdateConfig } from "apis/config";
 import { getConfig } from "store/app/appActions";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateConfig = () => {
   const { configs } = useSelector((state) => state?.app);
@@ -117,7 +117,7 @@ const CreateConfig = () => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleUpdateConfig)}>
           <div className="flex flex-col gap-2 ">

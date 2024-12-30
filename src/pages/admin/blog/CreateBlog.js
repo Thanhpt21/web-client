@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { apiCreateBlog, apiUpdateBlog } from "apis/blog";
 import { showModal } from "store/app/appSlice";
 import { getBase64 } from "utils/helpers";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateBlog = ({ valueEdit, isUpdateMode }) => {
   const { blogCategories } = useSelector((state) => state?.app);
@@ -144,7 +144,7 @@ const CreateBlog = ({ valueEdit, isUpdateMode }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
 
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateOrUpdateBlog)}>

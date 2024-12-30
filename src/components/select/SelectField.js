@@ -27,7 +27,21 @@ const SelectField = ({
         value={value}
         disabled={disabled}
         defaultValue={defaultValue}
-        className={clsx("form-select", fullwidth && "w-full", style)}
+        className={clsx(
+          "form-select",
+          "border",
+          "border-gray-300",
+          "px-3",
+          "py-2",
+          "rounded",
+          "focus:outline-none",
+          "focus:border-gray-500",
+          "transition-colors",
+          "duration-300",
+          fullwidth && "w-full",
+          disabled ? "bg-gray-300 cursor-not-allowed" : "bg-white",
+          style
+        )}
         id={id}
         {...register(id, validate)}
         onChange={handleChange}

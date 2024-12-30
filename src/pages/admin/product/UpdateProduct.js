@@ -435,7 +435,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
               validate={{
                 required: "Vui lòng chọn tình trạng",
               }}
-              style="flex-auto"
+              style="flex-1"
               placeholder="Vui lòng chọn tình trạng"
               fullwidth
             />
@@ -446,7 +446,7 @@ const UpdateProduct = ({ valueEdit, render, setValueEdit }) => {
                 value: el.title,
               }))}
               register={register}
-              style="flex-auto"
+              style="flex-1"
               id="color"
               validate={{ required: "Vui lòng chọn màu" }}
               errors={errors}

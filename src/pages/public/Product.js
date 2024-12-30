@@ -34,7 +34,7 @@ const Product = ({ dispatch, navigate }) => {
   const { category } = useParams();
 
   const [product, setproduct] = useState(null);
-  const [activeClick, setactiveClick] = useState(null);
+  // const [activeClick, setactiveClick] = useState(null);
   const [sort, setsort] = useState("");
 
   const [price, setprice] = useState({
@@ -116,13 +116,13 @@ const Product = ({ dispatch, navigate }) => {
     window.scrollTo(0, 0);
   }, [params, category, categories]);
 
-  const changeActiveFilter = useCallback(
-    (name) => {
-      if (activeClick === name) setactiveClick(null);
-      else setactiveClick(name);
-    },
-    [activeClick]
-  );
+  // const changeActiveFilter = useCallback(
+  //   (name) => {
+  //     if (activeClick === name) setactiveClick(null);
+  //     else setactiveClick(name);
+  //   },
+  //   [activeClick]
+  // );
 
   const changeValue = useCallback(
     (value) => {

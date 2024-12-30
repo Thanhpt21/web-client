@@ -89,7 +89,7 @@ const Dashboard = () => {
     }
   };
 
-  const handleDeleteRating = (productId, ratingId) => {
+  const handleDeleteRating = async (productId, ratingId) => {
     if (!productId || !ratingId) {
       toast.error("ID sản phẩm hoặc ID đánh giá không hợp lệ.");
       return;
@@ -99,10 +99,10 @@ const Dashboard = () => {
       text: "Bạn có muốn xóa đánh giá này?",
       icon: "warning",
       showCancelButton: true,
-    }).then((rs) => {
+    }).then(async (rs) => {
       if (rs.isConfirmed) {
         try {
-          const response = apiDeleteRating(productId, ratingId);
+          const response = await apiDeleteRating(productId, ratingId);
           if (response.success) {
             setLatestProductsRatings((prevRatings) =>
               prevRatings

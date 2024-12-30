@@ -7,7 +7,7 @@ import { showModal } from "store/app/appSlice";
 import { getBase64 } from "utils/helpers";
 
 import { apiCreateCategory } from "apis/category";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateCategory = () => {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const CreateCategory = () => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateCategory)}>
           <div className="flex flex-col gap-2">

@@ -126,9 +126,21 @@ const ListBaseCoupon = ({ dispatch }) => {
       title: "Ngày hết hạn",
       dataIndex: "expiry",
       render: (item) => {
-        return moment(item).format("DD/MM/YYYY");
+        const isExpired = new Date(item) <= new Date();
+
+        return (
+          <div className="flex items-center gap-2">
+            <span>{moment(item).format("DD/MM/YYYY")}</span>
+            {isExpired && (
+              <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-md">
+                Hết hạn
+              </span>
+            )}
+          </div>
+        );
       },
     },
+
     {
       title: "Hành động",
       align: "center",

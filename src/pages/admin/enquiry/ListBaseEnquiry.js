@@ -86,6 +86,10 @@ const ListBaseEnquiry = () => {
       dataIndex: "mobile",
     },
     {
+      title: "comment",
+      dataIndex: "comment",
+    },
+    {
       title: "Ngày gửi",
       dataIndex: "createdAt",
       render: (item) => {

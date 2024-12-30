@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { InputForm, ButtonField, Loading } from "components";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { showModal } from "store/app/appSlice";
 import withBase from "hocs/withBase";
 import { apiCreateRetail } from "apis";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
+import { getBase64 } from "utils/helpers";
 
 const CreateRetail = ({ dispatch }) => {
   const {
@@ -13,7 +14,21 @@ const CreateRetail = ({ dispatch }) => {
     formState: { errors },
     reset,
     handleSubmit,
+    watch,
   } = useForm();
+
+  const [preview, setPreview] = useState({
+    images: null,
+  });
+
+  const handlePreview = async (file) => {
+    const base64 = await getBase64(file);
+    setPreview((prev) => ({ ...prev, images: base64 }));
+  };
+
+  useEffect(() => {
+    handlePreview(watch("images")[0]);
+  }, [watch("images")]);
 
   const getIframeSrc = (html) => {
     const srcPattern = /src="([^"]*)"/;
@@ -21,9 +36,16 @@ const CreateRetail = ({ dispatch }) => {
     return match ? match[1] : "";
   };
   const handleCreateRetail = async (data) => {
-    data.iframe = getIframeSrc(data.iframe);
+    const finalPayload = { ...data };
+    finalPayload.iframe = getIframeSrc(finalPayload.iframe);
+    const formData = new FormData();
+    if (finalPayload.images) {
+      formData.append("images", finalPayload.images[0]);
+    }
+
+    for (let i of Object.entries(finalPayload)) formData.append(i[0], i[1]);
     dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
-    const response = await apiCreateRetail(data);
+    const response = await apiCreateRetail(formData);
     dispatch(showModal({ isShowModal: false, modalChildren: null }));
 
     if (response.success) {
@@ -36,9 +58,34 @@ const CreateRetail = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateRetail)}>
+          <div className="flex flex-col gap-2">
+            <label className="" htmlFor="images">
+              Upload ảnh
+            </label>
+            <input
+              className="w-fit"
+              type="file"
+              id="images"
+              {...register("images", { required: "Vui lòng chọn ảnh" })}
+            />
+            {errors["images"] && (
+              <small className="text-xs text-red-500">
+                {errors["images"]?.message}
+              </small>
+            )}
+          </div>
+          {preview.images && (
+            <div className="my-4">
+              <img
+                className="w-[100px] object-contain"
+                src={preview.images}
+                alt="images"
+              />
+            </div>
+          )}
           <div className="w-full my-6 flex gap-4">
             <InputForm
               label={"Tên chi nhánh"}

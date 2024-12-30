@@ -5,10 +5,45 @@ import { Link } from "react-router-dom";
 import path from "utils/path";
 import { CartItem } from "components";
 import withBase from "hocs/withBase";
+import emptyCart from "assets/payment.jpg";
 
 const MyCart = (props) => {
   const { currentCart } = useSelector((state) => state.user);
-  console.log("currentCart", currentCart);
+
+  if (!currentCart || currentCart.length === 0) {
+    return (
+      <div className="w-full px-4">
+        <header className="font-medium py-4 border-b md:text-start text-center">
+          Giỏ hàng
+        </header>
+        {/* Tấm ảnh hiển thị khi giỏ hàng trống */}
+        <div className="flex justify-center items-center py-8">
+          <img
+            src={emptyCart}
+            alt="Giỏ hàng trống"
+            className="w-48 h-48 object-cover"
+          />
+        </div>
+
+        {/* Dòng chữ thông báo giỏ hàng trống */}
+        <div className="flex justify-center items-center py-4">
+          <span className="text-xl font-semibold text-gray-500">
+            Giỏ hàng của bạn đang trống
+          </span>
+        </div>
+
+        {/* Nút tiếp tục mua hàng */}
+        <div className="w-full flex flex-col my-4 justify-center items-center gap-2">
+          <Link
+            className="bg-main text-white px-4 py-2"
+            to={`/${path.PRODUCTS}`}
+          >
+            Tiếp tục mua hàng
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full px-4">

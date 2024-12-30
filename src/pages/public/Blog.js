@@ -9,14 +9,14 @@ import { useForm } from "react-hook-form";
 import path from "utils/path";
 import BreadcrumbsDefault from "components/common/BreadcrumbsDefault";
 
-const Blog = ({}) => {
+const Blog = () => {
   const { blogCategories } = useSelector((state) => state?.app);
   const [data, setdata] = useState(null);
   const [counts, setCounts] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const {
-    formState: { errors },
+    formState: {},
   } = useForm();
 
   const handleOnChange = (e) => {
@@ -45,7 +45,7 @@ const Blog = ({}) => {
 
   useEffect(() => {
     fetchBlog();
-  }, [blogcateId]);
+  }, []);
 
   return (
     <div className="w-full">

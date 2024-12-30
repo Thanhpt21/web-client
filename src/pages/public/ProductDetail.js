@@ -201,6 +201,9 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
   });
 
   const handleAddCart = async () => {
+    if (!size) {
+      return toast.warning("Vui lòng chọn size sản phẩm");
+    }
     if (!current)
       return Swal.fire({
         title: "Thông báo",
@@ -236,10 +239,14 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
   };
 
   const handleBuyNow = async () => {
-    await handleAddCart();
-    setTimeout(() => {
-      navigate(`/${path.CHECKOUT}`);
-    }, 500);
+    if (size) {
+      await handleAddCart();
+      setTimeout(() => {
+        navigate(`/${path.CHECKOUT}`);
+      }, 500);
+    } else {
+      return toast.warning("Vui lòng chọn size sản phẩm");
+    }
   };
 
   const handleClickImg = (e, el) => {
@@ -266,8 +273,6 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
 
   const adjustedRatings =
     product?.ratings.length === 0 ? 0 : product?.totalratings;
-  console.log("product", product);
-  console.log("sizeData", sizeData);
 
   return (
     <div className={clsx("w-full")}>
@@ -629,34 +634,47 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
               <section>
                 <div className="overflow-y-auto">
                   <div className="flex flex-col gap-4">
-                    {coupon?.map((el, index) => (
-                      <div
-                        key={el.name}
-                        className="bg-white shadow-sm rounded-md flex flex-col gap-2 border border-1 p-2"
-                      >
-                        <div className="font-medium">Mã: {el.name}</div>
-                        <div className="text-gray-600 text-xs">
-                          - Giảm {formatMoney(el.discount)} cho đơn hàng giá trị
-                          tối thiểu {formatMoney(el.minPrice)}.
-                          <br />- Tối đa 1 mã giảm giá/đơn hàng.
+                    {coupon?.map((el, index) => {
+                      const remainingUses = el.usageLimit - el.usedCount; // Tính số lượng còn lại
+                      const isExpired = new Date(el.expiry) <= new Date();
+                      if (isExpired) return null;
+                      return (
+                        <div
+                          key={el.name}
+                          className="bg-white shadow-sm rounded-md flex flex-col gap-2 border border-1 p-2"
+                        >
+                          <div className="flex justify-between items-center">
+                            <div className="font-medium">Mã: {el.name}</div>
+                            <div className="text-gray-600 text-xs">
+                              {/* Hiển thị số lượng còn lại */}
+                              {remainingUses > 0 && (
+                                <span>Số lượng còn lại: {remainingUses}</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="text-gray-600 text-xs">
+                            - Giảm {formatMoney(el.discount)} cho đơn hàng giá
+                            trị tối thiểu {formatMoney(el.minPrice)}.
+                            <br />- Tối đa 1 mã giảm giá/đơn hàng.
+                          </div>
+                          <div className="px-2 py-1 bg-transparent border border-1 border-black rounded-md  w-fit">
+                            <button
+                              className={`copy-btn ${
+                                Number(copiedIndex) === Number(index)
+                                  ? " text-black"
+                                  : "text-gray-600"
+                              }`}
+                              data-clipboard-text={el.name}
+                              data-index={index}
+                            >
+                              {Number(copiedIndex) === Number(index)
+                                ? "Đã sao chép"
+                                : "Sao chép"}
+                            </button>
+                          </div>
                         </div>
-                        <div className="px-2 py-1 bg-transparent border border-1 border-black rounded-md  w-fit">
-                          <button
-                            className={`copy-btn ${
-                              Number(copiedIndex) === Number(index)
-                                ? " text-black"
-                                : "text-gray-600"
-                            }`}
-                            data-clipboard-text={el.name}
-                            data-index={index}
-                          >
-                            {Number(copiedIndex) === Number(index)
-                              ? "Đã sao chép"
-                              : "Sao chép"}
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </section>
@@ -666,15 +684,19 @@ const ProductDetail = ({ data, location, navigate, dispatch }) => {
         <div className="border border-1 border-gray-200 shadow-md rounded-md py-4 flex flex-col px-4">
           <div className="font-semibold text-[16px] pb-2">Mã giảm giá</div>
           <div className="flex gap-2 items-center">
-            {coupon?.map((el) => (
-              <div
-                key={el._id}
-                onClick={toggleSidebarCoupon}
-                className="border border-1 rounded-md border-gray-300 py-1 px-2 w-fit flex gap-1 items-center cursor-pointer hover:border-gray-900"
-              >
-                <RiCoupon2Line /> {el.name}
-              </div>
-            ))}
+            {coupon?.map((el) => {
+              const isExpired = new Date(el.expiry) <= new Date();
+              if (isExpired) return null;
+              return (
+                <div
+                  key={el._id}
+                  onClick={toggleSidebarCoupon}
+                  className="border border-1 rounded-md border-gray-300 py-1 px-2 w-fit flex gap-1 items-center cursor-pointer hover:border-gray-900"
+                >
+                  <RiCoupon2Line /> {el.name}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

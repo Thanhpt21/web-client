@@ -3,7 +3,7 @@ import { Outlet, Navigate, NavLink } from "react-router-dom";
 import path from "utils/path";
 import { useSelector } from "react-redux";
 import { MemberSidebar } from "components";
-import { AiOutlineMenu, AiOutlineRollback } from "react-icons/ai"; // Import icon menu
+import { AiOutlineRollback } from "react-icons/ai"; // Import icon menu
 import { IoMdClose, IoMdMenu } from "react-icons/io";
 import { memberSidebar } from "utils/contants";
 import clsx from "clsx";

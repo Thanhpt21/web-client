@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { apiCreateBrand } from "apis/brand";
 import { getBase64 } from "utils/helpers";
 import { apigetAllCategories } from "apis";
-import HeaderPageAdmin from "components/admin/HeaderPageAdmin";
+import HeaderWithBackButton from "components/admin/HeaderWithBackButton";
 
 const CreateBrand = ({ dispatch }) => {
   const {
@@ -68,7 +68,7 @@ const CreateBrand = ({ dispatch }) => {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      <HeaderPageAdmin title={"Thêm mới"} />
+      <HeaderWithBackButton title={"Thêm mới"} />
       <div className="p-4">
         <form onSubmit={handleSubmit(handleCreateBrand)}>
           <div className="flex flex-col gap-2 ">

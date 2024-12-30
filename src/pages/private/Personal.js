@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { ButtonField, InputForm } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import avatarDF from "../../assets/avatar.jpg";
 import { apiUpdateCurrent } from "apis";
 import { getCurrent } from "store/user/userActions";
 import { toast } from "react-toastify";

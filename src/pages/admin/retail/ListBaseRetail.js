@@ -51,6 +51,7 @@ const ListBaseRetail = () => {
     }).then((rs) => {
       if (rs.isConfirmed) {
         const response = apiDeleteRetail(rid);
+        console.log(response);
         if (response.success) toast.success(response.message);
         else toast.error(response.message);
         setdata(data.filter((el) => el._id !== rid));
@@ -71,6 +72,13 @@ const ListBaseRetail = () => {
             index +
             1}
         </span>
+      ),
+    },
+    {
+      title: "Ảnh",
+      dataIndex: "images",
+      render: (item, record, index) => (
+        <img className="object-contain w-10" src={item} />
       ),
     },
     {
